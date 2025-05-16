@@ -172,7 +172,7 @@ function Role({ role }) {
 export default async function Home() {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <About />
     </>
   );

@@ -1,4 +1,4 @@
-import Layout from "@/components/ui/Layout";
+import Layout from "@/components/ui/layout";
 import { Providers } from "./providers";
 
 export const metadata = {
