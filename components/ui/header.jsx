@@ -13,6 +13,7 @@ import {
 } from "@headlessui/react";
 import clsx from "clsx";
 
+import { fallbackLng, languages } from "@/app/i18n/settings";
 import { Container } from "@/components/ui/container";
 import avatarImage from "@/public/images/avatar.jpeg";
 
@@ -77,17 +78,71 @@ function MoonIcon(props) {
   );
 }
 
-function MobileNavItem({ href, children }) {
+function getCurrentLocale(pathname) {
+  let maybeLocale = pathname?.split("/")[1];
+
+  return languages.includes(maybeLocale) ? maybeLocale : fallbackLng;
+}
+
+function isRouteActive(pathname, href, exact = false) {
+  if (!pathname) {
+    return false;
+  }
+
+  if (exact) {
+    return pathname === href || pathname === `${href}/`;
+  }
+
+  return (
+    pathname === href ||
+    pathname === `${href}/` ||
+    pathname.startsWith(`${href}/`)
+  );
+}
+
+function getNavItems(locale) {
+  let labels =
+    locale === "es"
+      ? {
+          home: "Inicio",
+          projects: "Proyectos",
+          articles: "Artículos",
+        }
+      : {
+          home: "Home",
+          projects: "Projects",
+          articles: "Articles",
+        };
+
+  let root = `/${locale}`;
+
+  return [
+    { href: root, label: labels.home, exact: true },
+    { href: `${root}/projects`, label: labels.projects, exact: false },
+    { href: `${root}/articles`, label: labels.articles, exact: false },
+  ];
+}
+
+function MobileNavItem({ href, children, isActive }) {
   return (
     <li>
-      <PopoverButton as={Link} href={href} className="block py-2">
+      <PopoverButton
+        as={Link}
+        href={href}
+        className={clsx(
+          "block py-2 transition",
+          isActive
+            ? "text-orange-500 dark:text-orange-400"
+            : "hover:text-orange-500 dark:hover:text-orange-400"
+        )}
+      >
         {children}
       </PopoverButton>
     </li>
   );
 }
 
-function MobileNavigation(props) {
+function MobileNavigation({ navItems, pathname, ...props }) {
   return (
     <Popover {...props}>
       <PopoverButton className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
@@ -113,11 +168,15 @@ function MobileNavigation(props) {
         </div>
         <nav className="mt-6">
           <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-            {/* <MobileNavItem href="/about">About</MobileNavItem> */}
-            {/* <MobileNavItem href="/articles">Articles</MobileNavItem> */}
-            {/* <MobileNavItem href="/projects">Projects</MobileNavItem> */}
-            {/* <MobileNavItem href="/speaking">Speaking</MobileNavItem> */}
-            {/* <MobileNavItem href="/uses">Uses</MobileNavItem> */}
+            {navItems.map((item) => (
+              <MobileNavItem
+                key={item.href}
+                href={item.href}
+                isActive={isRouteActive(pathname, item.href, item.exact)}
+              >
+                {item.label}
+              </MobileNavItem>
+            ))}
           </ul>
         </nav>
       </PopoverPanel>
@@ -125,9 +184,7 @@ function MobileNavigation(props) {
   );
 }
 
-function NavItem({ href, children }) {
-  let isActive = usePathname() === href;
-
+function NavItem({ href, children, isActive }) {
   return (
     <li>
       <Link
@@ -148,16 +205,20 @@ function NavItem({ href, children }) {
   );
 }
 
-function DesktopNavigation(props) {
+function DesktopNavigation({ navItems, pathname, ...props }) {
   return (
     <nav {...props}>
-      {/* <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10"> */}
-      {/* <NavItem href="/about">About</NavItem> */}
-      {/* <NavItem href="/articles">Articles</NavItem> */}
-      {/* <NavItem href="/projects">Projects</NavItem> */}
-      {/* <NavItem href="/speaking">Speaking</NavItem> */}
-      {/* <NavItem href="/uses">Uses</NavItem> */}
-      {/* </ul> */}
+      <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+        {navItems.map((item) => (
+          <NavItem
+            key={item.href}
+            href={item.href}
+            isActive={isRouteActive(pathname, item.href, item.exact)}
+          >
+            {item.label}
+          </NavItem>
+        ))}
+      </ul>
     </nav>
   );
 }
@@ -202,10 +263,10 @@ function AvatarContainer({ className, ...props }) {
   );
 }
 
-function Avatar({ large = false, className, ...props }) {
+function Avatar({ href = "/", large = false, className, ...props }) {
   return (
     <Link
-      href="/"
+      href={href}
       aria-label="Home"
       className={clsx(className, "pointer-events-auto")}
       {...props}
@@ -225,7 +286,12 @@ function Avatar({ large = false, className, ...props }) {
 }
 
 export function Header() {
-  let isHomePage = usePathname() === "/";
+  let pathname = usePathname();
+  let locale = getCurrentLocale(pathname);
+  let navItems = getNavItems(locale);
+  let homeHref = navItems[0].href;
+  let isHomePage = isRouteActive(pathname, homeHref, true);
+  const useHomeHeroAvatar = false;
 
   let headerRef = useRef(null);
   let avatarRef = useRef(null);
@@ -285,7 +351,7 @@ export function Header() {
     }
 
     function updateAvatarStyles() {
-      if (!isHomePage) {
+      if (!isHomePage || !useHomeHeroAvatar) {
         return;
       }
 
@@ -329,7 +395,7 @@ export function Header() {
       window.removeEventListener("scroll", updateStyles);
       window.removeEventListener("resize", updateStyles);
     };
-  }, [isHomePage]);
+  }, [isHomePage, useHomeHeroAvatar]);
 
   return (
     <>
@@ -340,7 +406,7 @@ export function Header() {
           marginBottom: "var(--header-mb)",
         }}
       >
-        {isHomePage && (
+        {isHomePage && useHomeHeroAvatar && (
           <>
             <div
               ref={avatarRef}
@@ -367,6 +433,7 @@ export function Header() {
                     }}
                   />
                   <Avatar
+                    href={homeHref}
                     large
                     className="block h-16 w-16 origin-left"
                     style={{ transform: "var(--avatar-image-transform)" }}
@@ -389,17 +456,25 @@ export function Header() {
               position: "var(--header-inner-position)",
             }}
           >
-            <div className="relative flex gap-4">
+            <div className="relative flex items-center gap-4">
               <div className="flex flex-1">
-                {!isHomePage && (
+                {(!isHomePage || !useHomeHeroAvatar) && (
                   <AvatarContainer>
-                    <Avatar />
+                    <Avatar href={homeHref} />
                   </AvatarContainer>
                 )}
               </div>
               <div className="flex flex-1 justify-end md:justify-center">
-                {/* <MobileNavigation className="pointer-events-auto md:hidden" /> */}
-                <DesktopNavigation className="pointer-events-auto hidden md:block" />
+                <MobileNavigation
+                  navItems={navItems}
+                  pathname={pathname}
+                  className="pointer-events-auto md:hidden"
+                />
+                <DesktopNavigation
+                  navItems={navItems}
+                  pathname={pathname}
+                  className="pointer-events-auto hidden md:block"
+                />
               </div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">
@@ -410,7 +485,7 @@ export function Header() {
           </Container>
         </div>
       </header>
-      {isHomePage && (
+      {isHomePage && useHomeHeroAvatar && (
         <div
           className="flex-none"
           style={{ height: "var(--content-offset)" }}

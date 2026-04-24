@@ -1,0 +1,65 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="1480" y2="820" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B1020"/>
+      <stop offset="0.52" stop-color="#111827"/>
+      <stop offset="1" stop-color="#1E293B"/>
+    </linearGradient>
+    <radialGradient id="warm" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(460 240) rotate(30) scale(540 320)">
+      <stop stop-color="#F97316" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cool" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1180 600) rotate(-20) scale(520 340)">
+      <stop stop-color="#38BDF8" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#warm)"/>
+  <rect width="1600" height="900" fill="url(#cool)"/>
+
+  <text x="120" y="122" fill="#FB923C" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="4">PROGRAMMING FUNDAMENTALS</text>
+  <text x="120" y="194" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="800">Object-Oriented Programming</text>
+  <text x="120" y="246" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="30">Classes, Objects, and the Four Core Principles</text>
+
+  <g stroke="#64748B" stroke-opacity="0.42" stroke-width="2">
+    <path d="M340 420H620"/>
+    <path d="M820 420H1100"/>
+    <path d="M620 620H820"/>
+    <path d="M1100 620H1320"/>
+  </g>
+
+  <g>
+    <rect x="220" y="350" width="240" height="140" rx="24" fill="#0F172A" stroke="#334155"/>
+    <text x="340" y="408" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Class</text>
+    <text x="340" y="440" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="17">Blueprint</text>
+  </g>
+
+  <g>
+    <rect x="620" y="350" width="240" height="140" rx="24" fill="#0F172A" stroke="#334155"/>
+    <text x="740" y="408" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Object</text>
+    <text x="740" y="440" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="17">State + Behavior</text>
+  </g>
+
+  <g>
+    <rect x="1020" y="350" width="240" height="140" rx="24" fill="#0F172A" stroke="#334155"/>
+    <text x="1140" y="408" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Methods</text>
+    <text x="1140" y="440" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="17">Actions</text>
+  </g>
+
+  <g>
+    <rect x="440" y="560" width="280" height="150" rx="24" fill="#111827" stroke="#475569"/>
+    <text x="580" y="620" text-anchor="middle" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Encapsulation</text>
+    <text x="580" y="650" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="16">+ Abstraction</text>
+  </g>
+
+  <g>
+    <rect x="820" y="560" width="320" height="150" rx="24" fill="#111827" stroke="#475569"/>
+    <text x="980" y="620" text-anchor="middle" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Inheritance</text>
+    <text x="980" y="650" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="16">+ Polymorphism</text>
+  </g>
+
+  <rect x="120" y="736" width="620" height="68" rx="14" fill="#0F172A" fill-opacity="0.72" stroke="#334155"/>
+  <text x="430" y="778" text-anchor="middle" fill="#CBD5E1" font-family="Arial, Helvetica, sans-serif" font-size="23">Generalization • Reusability • Maintainability</text>
+</svg>

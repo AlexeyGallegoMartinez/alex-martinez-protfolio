@@ -4,25 +4,14 @@ import logoGE from "@/public/images/logos/ge.jpg";
 import logoEncore from "@/public/images/logos/encore.jpg";
 import logoFiu from "@/public/images/logos/fiu2.png";
 import Image from "next/image";
-import { Button } from "../ui/button";
 
 const resume = [
   {
-    company: "Encore Automation",
-    title: "Product Development Engineer",
-    logo: logoEncore,
-    start: "2021",
-    end: {
-      label: "Present",
-      dateTime: new Date().getFullYear().toString(),
-    },
-  },
-  {
-    company: "ubreakifix",
-    title: "Tech Leader / Manager",
-    logo: logoUbif,
-    start: "2020",
-    end: "2021",
+    company: "Florida International University",
+    title: "Engineering Class Assistant",
+    logo: logoFiu,
+    start: "2019",
+    end: "2019",
   },
   {
     company: "GE Appliances",
@@ -32,11 +21,28 @@ const resume = [
     end: "2020",
   },
   {
-    company: "Florida International University",
-    title: "Engineering Class Assistant",
-    logo: logoFiu,
-    start: "2019",
-    end: "2019",
+    company: "ubreakifix",
+    title: "Tech Leader / Manager",
+    logo: logoUbif,
+    start: "2020",
+    end: "2021",
+  },
+  {
+    company: "Encore Automation",
+    title: "Product Development Engineer",
+    logo: logoEncore,
+    start: "2021",
+    end: "2025",
+  },
+  {
+    company: "Encore Automation",
+    title: "Systems Engineer",
+    logo: logoEncore,
+    start: "2025",
+    end: {
+      label: "Present",
+      dateTime: new Date().getFullYear().toString(),
+    },
   },
 ];
 
@@ -105,19 +111,6 @@ function Role({ role }) {
   );
 }
 
-function ArrowDownIcon(props) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export default function Resume() {
   return (
     <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
@@ -130,25 +123,6 @@ export default function Resume() {
           <Role key={roleIndex} role={role} />
         ))}
       </ol>
-      <div className="flex items-center justify-center mt-4 w-full">
-        <a
-          href="/api/download"
-          className="w-full inline-flex items-center gap-2 justify-center rounded-md bg-zinc-800 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-700 active:bg-zinc-900 transition"
-        >
-          Download CV
-          <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-        </a>
-      </div>
-
-      {/* <Button
-        href="/alexcv.pdf"
-        variant="secondary"
-        // locale={false}
-        className="group mt-6 w-full"
-      >
-        Download CV
-        <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-      </Button> */}
     </div>
   );
 }

@@ -1,179 +1,285 @@
 import Image from "next/image";
 
+import SocialLink from "@/components/about/social-link";
+import MailIcon from "@/components/about/mail-icon";
+import ContentSection from "@/components/content/content-section";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-// import logoAirbnb from '@/images/logos/airbnb.svg'
-import logoUbif from "@/public/images/logos/ubif.png";
-// import logoFacebook from '@/images/logos/facebook.svg'
-// import logoPlanetaria from '@/images/logos/planetaria.svg'
-import logoGE from "@/public/images/logos/ge.jpg";
-import logoEncore from "@/public/images/logos/encore.jpg";
-
-import Newsletter from "@/components/home/newsletter";
-import About from "@/components/about/about";
-import Resume from "@/components/about/resume";
 import { Header } from "@/components/ui/header";
+import {
+  GitHubIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  XIcon,
+} from "@/components/ui/social-icons";
+import { formatMonthYear } from "@/lib/formatters";
+import { getSiteCopy } from "@/lib/site-copy";
+import { getFeaturedArticles, getFeaturedProjects } from "@/lib/site-content";
+import logoEncore from "@/public/images/logos/encore.jpg";
+import logoFiu from "@/public/images/logos/fiu2.png";
+import logoGE from "@/public/images/logos/ge.jpg";
+import logoUbif from "@/public/images/logos/ubif.png";
+import portraitImage from "@/public/images/portrait.png";
 
-function MailIcon(props) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path
-        d="M2.75 7.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z"
-        className="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"
-      />
-      <path
-        d="m4 6 6.024 5.479a2.915 2.915 0 0 0 3.952 0L20 6"
-        className="stroke-zinc-400 dark:stroke-zinc-500"
-      />
-    </svg>
-  );
+const iconMap = {
+  x: XIcon,
+  instagram: InstagramIcon,
+  github: GitHubIcon,
+  linkedin: LinkedInIcon,
+  email: MailIcon,
+};
+
+const logoMap = {
+  encore: logoEncore,
+  ubif: logoUbif,
+  ge: logoGE,
+  fiu: logoFiu,
+};
+
+function getRoleDateLabel(value) {
+  return typeof value === "string" ? value : value.label;
 }
 
-function BriefcaseIcon(props) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path
-        d="M2.75 9.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z"
-        className="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"
-      />
-      <path
-        d="M3 14.25h6.249c.484 0 .952-.002 1.316.319l.777.682a.996.996 0 0 0 1.316 0l.777-.682c.364-.32.832-.319 1.316-.319H21M8.75 6.5V4.75a2 2 0 0 1 2-2h2.5a2 2 0 0 1 2 2V6.5"
-        className="stroke-zinc-400 dark:stroke-zinc-500"
-      />
-    </svg>
-  );
+function getRoleDateTime(value) {
+  return typeof value === "string" ? value : value.dateTime;
 }
 
-function ArrowDownIcon(props) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+function getYearNumber(value) {
+  const label = getRoleDateLabel(value);
+  const match = label.match(/\d{4}/);
+
+  return match ? Number(match[0]) : Number.MAX_SAFE_INTEGER;
 }
 
-function Role({ role }) {
-  let startLabel =
-    typeof role.start === "string" ? role.start : role.start.label;
-  let startDate =
-    typeof role.start === "string" ? role.start : role.start.dateTime;
-
-  let endLabel = typeof role.end === "string" ? role.end : role.end.label;
-  let endDate = typeof role.end === "string" ? role.end : role.end.dateTime;
+function ExperienceSection({ copy }) {
+  const roles = [...copy.profile.resume.roles].sort(
+    (a, b) => getYearNumber(a.start) - getYearNumber(b.start),
+  );
 
   return (
-    <li className="flex gap-4">
-      <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-        <Image
-          src={role.logo}
-          alt=""
-          className="h-7 w-7 rounded-full"
-          unoptimized
-        />
+    <section className="mt-20 sm:mt-24">
+      <div className="rounded-3xl border border-zinc-200/70 bg-white p-8 shadow-sm shadow-zinc-900/5 dark:border-zinc-700/60 dark:bg-zinc-900/80 dark:shadow-black/20 sm:p-10">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-orange-500">
+            {copy.home.credibility.eyebrow}
+          </p>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100">
+            {copy.home.credibility.title}
+          </h2>
+          <p className="mt-4 text-base leading-7 text-zinc-600 dark:text-zinc-400">
+            {copy.home.credibility.description}
+          </p>
+        </div>
+
+        <div className="mt-10">
+          <ol className="grid w-full gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            {roles.map((role, roleIndex) => {
+              const startLabel = getRoleDateLabel(role.start);
+              const startDate = getRoleDateTime(role.start);
+              const endLabel = getRoleDateLabel(role.end);
+              const endDate = getRoleDateTime(role.end);
+              const summary =
+                role.summary ??
+                `${role.title} focused on practical system delivery and operational reliability.`;
+
+              return (
+                <li key={`${role.company}-${role.title}`} className="min-w-0">
+                  <div className="flex items-center gap-3">
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-orange-500" />
+                    <p className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+                      {startLabel}
+                    </p>
+                    {roleIndex < roles.length - 1 ? (
+                      <span className="h-px min-w-0 flex-1 bg-zinc-200 dark:bg-zinc-700" />
+                    ) : null}
+                  </div>
+
+                  <article className="mt-6 flex min-h-[10rem] flex-col gap-1">
+                    <div className="">
+                      <p className="text-[0.65rem] leading-4 font-bold uppercase tracking-[0.2em] text-orange-500">
+                        {role.company}
+                      </p>
+                    </div>
+
+                    <h3 className=" text-[0.80rem] leading-5 font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+                      {role.title}
+                    </h3>
+
+                    <p className=" text-xs leading-6 text-zinc-600 dark:text-zinc-400">
+                      {summary}
+                    </p>
+
+                    {/* <p className="mt-5 text-[0.58rem] font-medium uppercase tracking-[0.2em] text-orange-100 dark:text-orange-100">
+                      <time dateTime={startDate}>{startLabel}</time>{" "}
+                      <span aria-hidden="true">-</span>{" "}
+                      <time dateTime={endDate}>{endLabel}</time>
+                    </p> */}
+                  </article>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+
       </div>
-      <dl className="flex flex-auto flex-wrap gap-x-2">
-        <dt className="sr-only">Company</dt>
-        <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
-          {role.company}
-        </dd>
-        <dt className="sr-only">Role</dt>
-        <dd className="text-xs text-zinc-500 dark:text-zinc-400">
-          {role.title}
-        </dd>
-        <dt className="sr-only">Date</dt>
-        <dd
-          className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
-          aria-label={`${startLabel} until ${endLabel}`}
-        >
-          <time dateTime={startDate}>{startLabel}</time>{" "}
-          <span aria-hidden="true">—</span>{" "}
-          <time dateTime={endDate}>{endLabel}</time>
-        </dd>
-      </dl>
-    </li>
+    </section>
   );
 }
 
-// function Resume() {
-//   let resume = [
-//     {
-//       company: "Encore Automation",
-//       title: "Product Development Engineer",
-//       logo: logoEncore,
-//       start: "2021",
-//       end: {
-//         label: "Present",
-//         dateTime: new Date().getFullYear().toString(),
-//       },
-//     },
-//     {
-//       company: "ubreakifix",
-//       title: "Tech Leader / Manager",
-//       logo: logoUbif,
-//       start: "2020",
-//       end: "2021",
-//     },
-//     {
-//       company: "GE Appliances",
-//       title: "Technology Co-Op",
-//       logo: logoGE,
-//       start: "2020",
-//       end: "2020",
-//     },
-//     {
-//       company: "Florida International University",
-//       title: "Engineering Class Assistant",
-//       logo: logoFiu,
-//       start: "2019",
-//       end: "2019",
-//     },
-//   ];
+export async function generateMetadata({ params }) {
+  const { lng } = await params;
+  return getSiteCopy(lng).home.metadata;
+}
 
-//   return (
-//     <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
-//       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-//         <BriefcaseIcon className="h-6 w-6 flex-none" />
-//         <span className="ml-3">Work</span>
-//       </h2>
-//       <ol className="mt-6 space-y-4">
-//         {resume.map((role, roleIndex) => (
-//           <Role key={roleIndex} role={role} />
-//         ))}
-//       </ol>
-//       <Button href="#" variant="secondary" className="group mt-6 w-full">
-//         Download CV
-//         <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-//       </Button>
-//     </div>
-//   );
-// }
+export default async function HomePage({ params }) {
+  const { lng } = await params;
+  const copy = getSiteCopy(lng);
+  const titleLines = Array.isArray(copy.home.titleLines)
+    ? copy.home.titleLines
+    : copy.home.title
+        .split("|")
+        .map((line) => line.trim())
+        .filter(Boolean);
 
-export default async function Home() {
+  const featuredArticles = getFeaturedArticles(lng, 3).map((article) => {
+    const published = formatMonthYear(article.publishedAt, lng);
+    const topics = article.tags?.slice(0, 2)?.join(" · ");
+
+    return {
+      href: `/${lng}/articles/${article.slug}`,
+      image: article.coverImage,
+      title: article.title,
+      description: article.summary,
+      eyebrow: article.category,
+      meta: topics ? `${published} · ${topics}` : published,
+      ctaLabel: copy.common.readArticle,
+    };
+  });
+
+  const featuredProjects = getFeaturedProjects(lng, 3).map((project) => {
+    const stackPreview = project.stack?.slice(0, 2)?.join(" · ");
+
+    return {
+      href: `/${lng}/projects/${project.slug}`,
+      image: project.coverImage,
+      title: project.title,
+      description: project.summary,
+      eyebrow: project.role,
+      meta: stackPreview
+        ? `${project.timeline} · ${stackPreview}`
+        : project.timeline,
+      ctaLabel: copy.common.viewProject,
+    };
+  });
+
   return (
     <>
       <Header />
-      <About />
+      <Container className="mt-16 sm:mt-32">
+        <section className="relative grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:items-start">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-24 -top-28 h-[30rem] w-[30rem] bg-[radial-gradient(circle,_rgba(249,115,22,0.28)_0%,_rgba(249,115,22,0.12)_38%,_transparent_70%)] opacity-80 blur-3xl dark:opacity-100"
+          />
+          <div className="relative z-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-orange-500">
+              {copy.home.eyebrow}
+            </p>
+            <h1 className="mt-4 text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100">
+              {titleLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <div className="mt-6 space-y-6 text-base leading-7 text-zinc-600 dark:text-zinc-400">
+              {copy.home.intro.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button href={`/${lng}/articles`}>
+                {copy.home.ctas.articles}
+              </Button>
+              <Button href={`/${lng}/projects`} variant="secondary">
+                {copy.home.ctas.projects}
+              </Button>
+            </div>
+          </div>
+
+          <aside className="relative z-10 overflow-hidden rounded-3xl border border-zinc-700/70 bg-zinc-900/90 p-6 shadow-sm shadow-black/30 sm:p-8">
+            <Image
+              src={portraitImage}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 24rem, 100vw"
+              className="object-cover opacity-15"
+              priority
+              aria-hidden
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(249,115,22,0.18),transparent_45%)]"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-linear-to-br from-zinc-950/90 via-zinc-900/80 to-zinc-950/95"
+            />
+            <div className="relative">
+              <h2 className="text-lg font-semibold text-zinc-50">
+                {copy.home.contact.title}
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-zinc-200/90">
+                {copy.home.contact.description}
+              </p>
+            </div>
+            <ul role="list" className="relative mt-6">
+              {copy.profile.socialLinks.map((link, index) => {
+                const Icon = iconMap[link.icon] ?? MailIcon;
+                const className =
+                  index === 0
+                    ? undefined
+                    : link.icon === "email"
+                      ? "mt-8 border-t border-white/15 pt-8"
+                      : "mt-4";
+
+                return (
+                  <SocialLink
+                    key={link.href}
+                    href={link.href}
+                    icon={Icon}
+                    className={className}
+                    linkClassName="text-zinc-100 hover:text-orange-300 dark:text-zinc-100 dark:hover:text-orange-300"
+                    iconClassName="fill-zinc-300 group-hover:fill-orange-300"
+                  >
+                    {link.label}
+                  </SocialLink>
+                );
+              })}
+            </ul>
+          </aside>
+        </section>
+
+        <ExperienceSection copy={copy} />
+
+        <ContentSection
+          eyebrow={copy.home.featuredArticles.eyebrow}
+          title={copy.home.featuredArticles.title}
+          description={copy.home.featuredArticles.description}
+          items={featuredArticles}
+          ctaHref={`/${lng}/articles`}
+          ctaLabel={copy.home.featuredArticles.cta}
+        />
+
+        <ContentSection
+          eyebrow={copy.home.selectedProjects.eyebrow}
+          title={copy.home.selectedProjects.title}
+          description={copy.home.selectedProjects.description}
+          items={featuredProjects}
+          ctaHref={`/${lng}/projects`}
+          ctaLabel={copy.home.selectedProjects.cta}
+        />
+      </Container>
     </>
   );
 }
