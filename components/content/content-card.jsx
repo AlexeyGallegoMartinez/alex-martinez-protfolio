@@ -1,5 +1,31 @@
 import Link from "next/link";
 
+function ActionArrowIcon({ className }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 16 16"
+      fill="none"
+      className={className}
+    >
+      <path
+        d="M4.75 11.25L11.25 4.75"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6 4.75H11.25V10"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function ContentCard({
   href,
   image,
@@ -31,11 +57,16 @@ export default function ContentCard({
         <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
           {description}
         </p>
-        <div className="mt-6 flex items-center justify-between gap-4 border-t border-zinc-100 pt-4 text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
-          <span className="truncate">{meta}</span>
-          <span className="font-medium text-orange-500 transition group-hover:translate-x-0.5">
-            {ctaLabel}
+        <div className="mt-auto border-t border-zinc-100 pt-4 dark:border-zinc-800">
+          <span className="block min-w-0 truncate text-xs font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
+            {meta}
           </span>
+          <div className="mt-4 flex justify-end">
+            <span className="inline-flex items-center gap-2 rounded-full border border-orange-200/80 bg-orange-50 px-3 py-1.5 text-sm font-semibold text-orange-600 shadow-sm shadow-orange-100/50 transition duration-300 group-hover:border-orange-300 group-hover:bg-orange-100 group-hover:text-orange-700 dark:border-orange-400/20 dark:bg-orange-500/10 dark:text-orange-300 dark:shadow-none dark:group-hover:border-orange-300/30 dark:group-hover:bg-orange-500/15 dark:group-hover:text-orange-200">
+              {ctaLabel}
+              <ActionArrowIcon className="size-4 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
+          </div>
         </div>
       </div>
       <Link href={href} aria-label={title} className="absolute inset-0 z-10" />

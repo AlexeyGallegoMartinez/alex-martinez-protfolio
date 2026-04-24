@@ -1,0 +1,100 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="110" y1="70" x2="1490" y2="830" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#08111F"/>
+      <stop offset="0.55" stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#1E293B"/>
+    </linearGradient>
+    <radialGradient id="warm" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(420 240) rotate(28) scale(520 320)">
+      <stop stop-color="#F97316" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cool" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1220 620) rotate(-20) scale(560 360)">
+      <stop stop-color="#22D3EE" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#warm)"/>
+  <rect width="1600" height="900" fill="url(#cool)"/>
+
+  <g opacity="0.25">
+    <circle cx="240" cy="170" r="2" fill="#CBD5E1"/>
+    <circle cx="1280" cy="180" r="2" fill="#CBD5E1"/>
+    <circle cx="1380" cy="740" r="2" fill="#CBD5E1"/>
+    <circle cx="500" cy="780" r="1.6" fill="#CBD5E1"/>
+  </g>
+
+  <text x="120" y="122" fill="#FB923C" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="4">SECURITY FUNDAMENTALS</text>
+  <text x="120" y="194" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="800">OAuth, OIDC, PKCE</text>
+  <text x="120" y="246" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="30">Modern web auth with short-lived access and protected refresh</text>
+
+  <g stroke="#475569" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round">
+    <path d="M350 470H590"/>
+    <path d="M790 470H1030"/>
+    <path d="M1230 470H1380"/>
+    <path d="M830 660H1030"/>
+  </g>
+
+  <g>
+    <rect x="170" y="390" width="220" height="160" rx="26" fill="#0B1222" stroke="#334155"/>
+    <circle cx="280" cy="438" r="28" fill="#111827" stroke="#475569"/>
+    <path d="M280 432C292.15 432 302 422.15 302 410C302 397.85 292.15 388 280 388C267.85 388 258 397.85 258 410C258 422.15 267.85 432 280 432Z" fill="none"/>
+    <circle cx="280" cy="417" r="13" fill="#CBD5E1"/>
+    <path d="M257 470C262 452 277 444 280 444C283 444 298 452 303 470" stroke="#CBD5E1" stroke-width="8" stroke-linecap="round"/>
+    <text x="280" y="512" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">User</text>
+    <text x="280" y="542" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="17">Browser client</text>
+  </g>
+
+  <g>
+    <rect x="590" y="390" width="240" height="160" rx="26" fill="#0B1222" stroke="#334155"/>
+    <rect x="652" y="430" width="116" height="52" rx="14" fill="#111827" stroke="#475569"/>
+    <text x="710" y="462" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">PKCE</text>
+    <text x="710" y="507" text-anchor="middle" fill="#CBD5E1" font-family="Arial, Helvetica, sans-serif" font-size="16">Auth code + verifier</text>
+    <text x="710" y="532" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="17">Public client flow</text>
+  </g>
+
+  <g>
+    <rect x="1030" y="390" width="240" height="160" rx="26" fill="#0B1222" stroke="#334155"/>
+    <path d="M1124 438C1124 411 1146 390 1172 390C1198 390 1220 411 1220 438V454H1238V516H1106V454H1124V438Z" fill="#111827" stroke="#475569"/>
+    <rect x="1160" y="472" width="24" height="30" rx="10" fill="#FB923C"/>
+    <circle cx="1172" cy="462" r="12" stroke="#FB923C" stroke-width="8"/>
+    <text x="1150" y="542" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">OIDC + OAuth</text>
+    <text x="1150" y="570" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="17">Identity and delegated access</text>
+  </g>
+
+  <g>
+    <rect x="1330" y="390" width="170" height="160" rx="26" fill="#0B1222" stroke="#334155"/>
+    <rect x="1382" y="430" width="66" height="18" rx="9" fill="#F97316"/>
+    <rect x="1370" y="460" width="90" height="18" rx="9" fill="#22D3EE" fill-opacity="0.84"/>
+    <rect x="1392" y="490" width="46" height="18" rx="9" fill="#94A3B8"/>
+    <text x="1415" y="532" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">API</text>
+    <text x="1415" y="560" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="17">Resource server</text>
+  </g>
+
+  <g>
+    <rect x="650" y="610" width="300" height="150" rx="24" fill="#111827" stroke="#475569"/>
+    <text x="800" y="666" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Access Token in Memory</text>
+    <text x="800" y="698" text-anchor="middle" fill="#FB923C" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">~15 min expiration</text>
+    <text x="800" y="728" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="16">Short replay window</text>
+  </g>
+
+  <g>
+    <rect x="1030" y="610" width="360" height="150" rx="24" fill="#111827" stroke="#475569"/>
+    <rect x="1070" y="654" width="72" height="50" rx="14" fill="#0B1222" stroke="#64748B"/>
+    <path d="M1094 654V640C1094 626 1104 616 1118 616C1132 616 1142 626 1142 640V654" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round"/>
+    <text x="1220" y="666" text-anchor="middle" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Refresh in HttpOnly Cookie</text>
+    <text x="1220" y="698" text-anchor="middle" fill="#22D3EE" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">15-90 day session window</text>
+    <text x="1220" y="728" text-anchor="middle" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="16">Rotate, revoke, detect reuse</text>
+  </g>
+
+  <circle cx="800" cy="685" r="8" fill="#FB923C" filter="url(#soft)"/>
+  <circle cx="1170" cy="686" r="8" fill="#22D3EE" filter="url(#soft)"/>
+
+  <rect x="120" y="734" width="458" height="66" rx="14" fill="#0F172A" fill-opacity="0.76" stroke="#334155"/>
+  <text x="349" y="776" text-anchor="middle" fill="#CBD5E1" font-family="Arial, Helvetica, sans-serif" font-size="23">Authorization • Authentication • Session Hardening</text>
+</svg>
