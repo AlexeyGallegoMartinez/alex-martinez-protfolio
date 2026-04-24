@@ -1,43 +1,31 @@
-import logoUbif from "@/public/images/logos/ubif.png";
-
-import logoGE from "@/public/images/logos/ge.jpg";
-import logoEncore from "@/public/images/logos/encore.jpg";
-import logoFiu from "@/public/images/logos/fiu2.png";
-import Image from "next/image";
-
 const resume = [
   {
     company: "Florida International University",
     title: "Engineering Class Assistant",
-    logo: logoFiu,
     start: "2019",
     end: "2019",
   },
   {
     company: "GE Appliances",
     title: "Technology Co-Op",
-    logo: logoGE,
     start: "2020",
     end: "2020",
   },
   {
     company: "ubreakifix",
     title: "Tech Leader / Manager",
-    logo: logoUbif,
     start: "2020",
     end: "2021",
   },
   {
     company: "Encore Automation",
     title: "Product Development Engineer",
-    logo: logoEncore,
     start: "2021",
     end: "2025",
   },
   {
     company: "Encore Automation",
     title: "Systems Engineer",
-    logo: logoEncore,
     start: "2025",
     end: {
       label: "Present",
@@ -80,13 +68,13 @@ function Role({ role }) {
 
   return (
     <li className="flex gap-4">
-      <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-        <Image
-          src={role.logo}
-          alt=""
-          className="h-7 w-7 rounded-full"
-          unoptimized
-        />
+      <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-zinc-100 text-xs font-semibold text-zinc-600 ring-1 ring-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:ring-zinc-700">
+        {role.company
+          .split(" ")
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase()}
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
         <dt className="sr-only">Company</dt>
@@ -103,7 +91,7 @@ function Role({ role }) {
           aria-label={`${startLabel} until ${endLabel}`}
         >
           <time dateTime={startDate}>{startLabel}</time>{" "}
-          <span aria-hidden="true">—</span>{" "}
+          <span aria-hidden="true">-</span>{" "}
           <time dateTime={endDate}>{endLabel}</time>
         </dd>
       </dl>

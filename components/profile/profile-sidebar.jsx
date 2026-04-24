@@ -40,7 +40,7 @@ export default function ProfileSidebar({ profile }) {
         })}
       </ul>
       <div className="w-full space-y-10">
-        <Resume copy={profile.resume} />
+        <Resume />
       </div>
     </div>
   );

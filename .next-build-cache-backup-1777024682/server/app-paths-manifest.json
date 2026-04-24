@@ -1,0 +1,15 @@
+{
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/download/route": "app/api/download/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/[lng]/(default)/about/page": "app/[lng]/(default)/about/page.js",
+  "/[lng]/(default)/projects/page": "app/[lng]/(default)/projects/page.js",
+  "/[lng]/(default)/projects/[slug]/page": "app/[lng]/(default)/projects/[slug]/page.js",
+  "/[lng]/(default)/articles/page": "app/[lng]/(default)/articles/page.js",
+  "/[lng]/(default)/blog/page": "app/[lng]/(default)/blog/page.js",
+  "/[lng]/(default)/articles/[slug]/page": "app/[lng]/(default)/articles/[slug]/page.js",
+  "/[lng]/(default)/page": "app/[lng]/(default)/page.js",
+  "/[lng]/(default)/work/page": "app/[lng]/(default)/work/page.js",
+  "/[lng]/(default)/uses/page": "app/[lng]/(default)/uses/page.js",
+  "/[lng]/(default)/speaking/page": "app/[lng]/(default)/speaking/page.js"
+}

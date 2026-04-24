@@ -25,16 +25,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[lng]/(default)/page.js"
-    ],
-    "/[lng]/(default)/articles/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[lng]/(default)/articles/[slug]/page.js"
-    ],
-    "/[lng]/(default)/articles/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[lng]/(default)/articles/page.js"
     ]
   }
 }
