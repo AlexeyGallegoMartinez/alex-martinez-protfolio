@@ -67,8 +67,8 @@ export default async function ContactPage({ params }) {
           ))}
         </section>
 
-        <section className="mt-14 rounded-3xl border border-zinc-200/70 bg-zinc-950 p-8 shadow-sm shadow-black/30 dark:border-zinc-700/60 sm:mt-16 sm:p-10">
-          <p className="max-w-3xl text-lg leading-8 text-zinc-100">
+        <section className="mt-14 rounded-3xl border border-zinc-200/70 bg-white p-8 shadow-sm shadow-zinc-900/5 dark:border-zinc-700/60 dark:bg-zinc-950 dark:shadow-black/30 sm:mt-16 sm:p-10">
+          <p className="max-w-3xl text-lg leading-8 text-zinc-700 dark:text-zinc-100">
             {copy.contact.note}
           </p>
         </section>

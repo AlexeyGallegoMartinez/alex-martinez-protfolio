@@ -23,7 +23,7 @@ export default async function ServicesPage({ params }) {
     <>
       <Header />
       <Container className="mt-16 sm:mt-32">
-        <section className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/20">
+        <section className="overflow-hidden rounded-3xl border border-zinc-200/70 bg-white shadow-xl shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-2xl dark:shadow-black/20">
           <div className="relative p-6 sm:p-8 lg:p-10">
             <div
               aria-hidden="true"
@@ -34,10 +34,10 @@ export default async function ServicesPage({ params }) {
                 <p className="text-sm font-semibold uppercase tracking-[0.32em] text-orange-400">
                   {copy.services.eyebrow}
                 </p>
-                <h2 className="mt-4 text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl">
+                <h2 className="mt-4 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
                   {copy.services.title}
                 </h2>
-                <p className="mt-6 text-base leading-7 text-zinc-300">
+                <p className="mt-6 text-base leading-7 text-zinc-600 dark:text-zinc-300">
                   {copy.services.description}
                 </p>
               </div>
@@ -47,7 +47,7 @@ export default async function ServicesPage({ params }) {
                   aria-hidden="true"
                   className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(249,115,22,0.2),transparent_55%)]"
                 />
-                <div className="absolute left-0 top-0 w-[82%] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl shadow-black/40">
+                <div className="absolute left-0 top-0 w-[82%] overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 shadow-2xl shadow-zinc-900/10 dark:border-white/10 dark:bg-zinc-900 dark:shadow-black/40">
                   <Image
                     src={operationsImage}
                     alt="Internal operations platform interface"
@@ -55,7 +55,7 @@ export default async function ServicesPage({ params }) {
                     sizes="(min-width: 1024px) 42rem, 100vw"
                   />
                 </div>
-                <div className="absolute bottom-12 right-0 w-[58%] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl shadow-black/50">
+                <div className="absolute bottom-12 right-0 w-[58%] overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 shadow-2xl shadow-zinc-900/10 dark:border-white/10 dark:bg-zinc-900 dark:shadow-black/50">
                   <Image
                     src={receiptImage}
                     alt="AI receipt analysis interface"
@@ -63,7 +63,7 @@ export default async function ServicesPage({ params }) {
                     sizes="(min-width: 1024px) 30rem, 80vw"
                   />
                 </div>
-                <div className="absolute bottom-0 left-8 w-[52%] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl shadow-black/50">
+                <div className="absolute bottom-0 left-8 w-[52%] overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 shadow-2xl shadow-zinc-900/10 dark:border-white/10 dark:bg-zinc-900 dark:shadow-black/50">
                   <Image
                     src={automationImage}
                     alt="Industrial automation dashboard interface"
@@ -74,17 +74,17 @@ export default async function ServicesPage({ params }) {
               </div>
             </div>
 
-            <div className="relative mt-10 border-t border-white/10 pt-8">
+            <div className="relative mt-10 border-t border-zinc-200/70 pt-8 dark:border-white/10">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.32em] text-orange-400">
                     {copy.services.buildEyebrow}
                   </p>
-                  <h3 className="mt-3 text-2xl font-semibold tracking-tight text-zinc-50">
+                  <h3 className="mt-3 text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
                     {copy.services.offerTitle}
                   </h3>
                 </div>
-                <p className="max-w-md text-sm leading-6 text-zinc-300">
+                <p className="max-w-md text-sm leading-6 text-zinc-600 dark:text-zinc-300">
                   {copy.services.buildDescription}
                 </p>
               </div>
@@ -94,22 +94,22 @@ export default async function ServicesPage({ params }) {
               {copy.services.offers.map((offer, index) => (
                 <article
                   key={offer.title}
-                  className="group overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-5 transition duration-300 hover:-translate-y-1 hover:border-orange-400/40 hover:bg-white/[0.07]"
+                  className="group overflow-hidden rounded-3xl border border-zinc-200/70 bg-zinc-50 p-5 transition duration-300 hover:-translate-y-1 hover:border-orange-400/40 hover:bg-white dark:border-white/10 dark:bg-white/[0.04] dark:hover:bg-white/[0.07]"
                 >
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-400">
                     0{index + 1} / {copy.services.offerMeta[index]}
                   </p>
-                  <h4 className="mt-4 text-xl font-semibold tracking-tight text-zinc-50">
+                  <h4 className="mt-4 text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
                     {offer.title}
                   </h4>
-                  <p className="mt-3 text-sm leading-6 text-zinc-300">
+                  <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
                     {offer.description}
                   </p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {copy.services.offerTags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-300"
+                        className="rounded-full border border-zinc-200/80 px-3 py-1 text-xs text-zinc-600 dark:border-white/10 dark:text-zinc-300"
                       >
                         {tag}
                       </span>
@@ -119,17 +119,17 @@ export default async function ServicesPage({ params }) {
               ))}
             </div>
 
-            <div className="relative mt-8 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-7">
+            <div className="relative mt-8 overflow-hidden rounded-3xl border border-zinc-200/70 bg-zinc-50 p-6 dark:border-white/10 dark:bg-white/[0.04] sm:p-7">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-20 -top-24 h-56 w-56 bg-[radial-gradient(circle,_rgba(249,115,22,0.22),transparent_70%)] blur-2xl"
               />
               <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                 <div className="max-w-3xl">
-                  <p className="text-lg font-semibold tracking-tight text-zinc-50">
+                  <p className="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
                     {copy.services.workflowCtaTitle}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-zinc-300">
+                  <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
                     {copy.services.workflowCtaDescription}
                   </p>
                 </div>
@@ -228,16 +228,16 @@ export default async function ServicesPage({ params }) {
           </div>
         </section>
 
-        <section className="mt-20 overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950 p-8 shadow-2xl shadow-black/20 sm:mt-24 sm:p-10">
+        <section className="mt-20 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-8 shadow-xl shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-2xl dark:shadow-black/20 sm:mt-24 sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="max-w-3xl">
               <p className="text-sm font-semibold uppercase tracking-[0.32em] text-orange-400">
                 {copy.services.nextMoveEyebrow}
               </p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-50">
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
                 {copy.services.ctaTitle}
               </h2>
-              <p className="mt-4 text-base leading-7 text-zinc-300">
+              <p className="mt-4 text-base leading-7 text-zinc-600 dark:text-zinc-300">
                 {copy.services.ctaDescription}
               </p>
             </div>
