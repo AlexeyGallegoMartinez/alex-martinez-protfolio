@@ -166,29 +166,29 @@ export default async function HomePage({ params }) {
             </div>
           </div>
 
-          <aside className="relative z-10 overflow-hidden rounded-3xl border border-zinc-700/70 bg-zinc-900/90 p-6 shadow-sm shadow-black/30 sm:p-8">
+          <aside className="relative z-10 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-sm shadow-zinc-900/5 dark:border-zinc-700/70 dark:bg-zinc-900/90 dark:shadow-black/30 sm:p-8">
             <Image
               src={portraitImage}
               alt=""
               fill
               sizes="(min-width: 1024px) 24rem, 100vw"
-              className="object-cover opacity-15"
+              className="object-cover opacity-35 dark:opacity-30"
               priority
               aria-hidden
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(249,115,22,0.18),transparent_45%)]"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(249,115,22,0.1),transparent_45%)] dark:bg-[radial-gradient(circle_at_15%_15%,rgba(249,115,22,0.18),transparent_45%)]"
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-linear-to-br from-zinc-950/90 via-zinc-900/80 to-zinc-950/95"
+              className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/78 via-white/62 to-zinc-50/78 dark:from-zinc-950/72 dark:via-zinc-900/58 dark:to-zinc-950/82"
             />
             <div className="relative">
-              <h2 className="text-lg font-semibold text-zinc-50">
+              <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
                 {copy.home.contact.title}
               </h2>
-              <p className="mt-2 text-sm leading-6 text-zinc-200/90">
+              <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-200/90">
                 {copy.home.contact.description}
               </p>
             </div>
@@ -199,7 +199,7 @@ export default async function HomePage({ params }) {
                   index === 0
                     ? undefined
                     : link.icon === "email"
-                      ? "mt-8 border-t border-white/15 pt-8"
+                      ? "mt-8 border-t border-zinc-200 pt-8 dark:border-white/15"
                       : "mt-4";
 
                 return (
@@ -208,8 +208,8 @@ export default async function HomePage({ params }) {
                     href={link.href}
                     icon={Icon}
                     className={className}
-                    linkClassName="text-zinc-100 hover:text-orange-300 dark:text-zinc-100 dark:hover:text-orange-300"
-                    iconClassName="fill-zinc-300 group-hover:fill-orange-300"
+                    linkClassName="dark:text-zinc-100 dark:hover:text-orange-300"
+                    iconClassName="dark:fill-zinc-300 dark:group-hover:fill-orange-300"
                   >
                     {link.label}
                   </SocialLink>
