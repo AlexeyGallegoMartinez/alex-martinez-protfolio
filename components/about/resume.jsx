@@ -1,39 +1,3 @@
-const resume = [
-  {
-    company: "Florida International University",
-    title: "Engineering Class Assistant",
-    start: "2019",
-    end: "2019",
-  },
-  {
-    company: "GE Appliances",
-    title: "Technology Co-Op",
-    start: "2020",
-    end: "2020",
-  },
-  {
-    company: "ubreakifix",
-    title: "Tech Leader / Manager",
-    start: "2020",
-    end: "2021",
-  },
-  {
-    company: "Encore Automation",
-    title: "Product Development Engineer",
-    start: "2021",
-    end: "2025",
-  },
-  {
-    company: "Encore Automation",
-    title: "Systems Engineer",
-    start: "2025",
-    end: {
-      label: "Present",
-      dateTime: new Date().getFullYear().toString(),
-    },
-  },
-];
-
 function BriefcaseIcon(props) {
   return (
     <svg
@@ -57,14 +21,19 @@ function BriefcaseIcon(props) {
   );
 }
 
-function Role({ role }) {
-  let startLabel =
-    typeof role.start === "string" ? role.start : role.start.label;
-  let startDate =
-    typeof role.start === "string" ? role.start : role.start.dateTime;
+function getDateLabel(value) {
+  return typeof value === "string" ? value : value.label;
+}
 
-  let endLabel = typeof role.end === "string" ? role.end : role.end.label;
-  let endDate = typeof role.end === "string" ? role.end : role.end.dateTime;
+function getDateTime(value) {
+  return typeof value === "string" ? value : value.dateTime;
+}
+
+function Role({ role }) {
+  const startLabel = getDateLabel(role.start);
+  const startDate = getDateTime(role.start);
+  const endLabel = getDateLabel(role.end);
+  const endDate = getDateTime(role.end);
 
   return (
     <li className="flex gap-4">
@@ -76,39 +45,45 @@ function Role({ role }) {
           .slice(0, 2)
           .toUpperCase()}
       </div>
-      <dl className="flex flex-auto flex-wrap gap-x-2">
-        <dt className="sr-only">Company</dt>
-        <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
-          {role.company}
-        </dd>
-        <dt className="sr-only">Role</dt>
-        <dd className="text-xs text-zinc-500 dark:text-zinc-400">
-          {role.title}
-        </dd>
-        <dt className="sr-only">Date</dt>
-        <dd
-          className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
-          aria-label={`${startLabel} until ${endLabel}`}
-        >
-          <time dateTime={startDate}>{startLabel}</time>{" "}
-          <span aria-hidden="true">-</span>{" "}
-          <time dateTime={endDate}>{endLabel}</time>
-        </dd>
-      </dl>
+      <div className="min-w-0 flex-auto">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+          <div className="min-w-0">
+            <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+              {role.company}
+            </h3>
+            <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+              {role.title}
+            </p>
+          </div>
+          <p
+            className="shrink-0 text-xs text-zinc-400 dark:text-zinc-500 sm:text-right"
+            aria-label={`${startLabel} until ${endLabel}`}
+          >
+            <time dateTime={startDate}>{startLabel}</time>{" "}
+            <span aria-hidden="true">-</span>{" "}
+            <time dateTime={endDate}>{endLabel}</time>
+          </p>
+        </div>
+        {role.summary ? (
+          <p className="mt-3 text-xs leading-5 text-zinc-600 dark:text-zinc-400">
+            {role.summary}
+          </p>
+        ) : null}
+      </div>
     </li>
   );
 }
 
-export default function Resume() {
+export default function Resume({ resume }) {
   return (
-    <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+    <div className="w-full rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-sm shadow-zinc-900/5 dark:border-zinc-700/60 dark:bg-zinc-900/80 dark:shadow-black/20 sm:p-8">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <BriefcaseIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Work</span>
+        <span className="ml-3">{resume.title}</span>
       </h2>
-      <ol className="mt-6 space-y-4">
-        {resume.map((role, roleIndex) => (
-          <Role key={roleIndex} role={role} />
+      <ol className="mt-8 space-y-8">
+        {resume.roles.map((role) => (
+          <Role key={`${role.company}-${role.title}`} role={role} />
         ))}
       </ol>
     </div>

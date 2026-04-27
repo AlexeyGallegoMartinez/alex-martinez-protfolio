@@ -1,7 +1,8 @@
 import "./globals.css";
-import AOSInitializer from "@/components/ui/aos-initializer";
-import { dir } from "i18next";
+
+import Layout from "@/components/ui/layout";
 import { languages } from "../i18n/settings";
+import { Providers } from "../providers";
 
 export const metadata = {
   title: "Alex Site",
@@ -17,9 +18,14 @@ export async function generateStaticParams() {
 export default async function LangLayout({ children, params }) {
   const { lng } = await params;
   return (
-    <>
-      {children}
-      {/* <AOSInitializer /> */}
-    </>
+    <html lang={lng} className="h-full antialiased" suppressHydrationWarning>
+      <body className="flex h-full bg-zinc-50 dark:bg-zinc-950">
+        <Providers>
+          <div className="flex w-full">
+            <Layout lng={lng}>{children}</Layout>
+          </div>
+        </Providers>
+      </body>
+    </html>
   );
 }

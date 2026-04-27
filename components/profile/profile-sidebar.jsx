@@ -6,7 +6,6 @@ import {
 } from "@/components/ui/social-icons";
 import SocialLink from "@/components/about/social-link";
 import MailIcon from "@/components/about/mail-icon";
-import Resume from "@/components/about/resume";
 
 const iconMap = {
   x: XIcon,
@@ -18,7 +17,7 @@ const iconMap = {
 
 export default function ProfileSidebar({ profile }) {
   return (
-    <div className="flex flex-col items-start justify-center gap-10 lg:pl-20">
+    <div className="flex w-full flex-col items-stretch justify-center gap-10 lg:pl-20">
       <ul role="list">
         {profile.socialLinks.map((link, index) => {
           let className = index === 0 ? undefined : "mt-4";
@@ -39,9 +38,6 @@ export default function ProfileSidebar({ profile }) {
           );
         })}
       </ul>
-      <div className="w-full space-y-10">
-        <Resume />
-      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -5,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Header } from "@/components/ui/header";
 import { getSiteCopy } from "@/lib/site-copy";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/site-content";
+import { createPageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getProjectSlugs();
@@ -19,8 +21,10 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${project.title} – Alex Martinez`,
-    description: project.summary,
+    ...createPageMetadata(lng, `/projects/${slug}`, {
+      title: `${project.title} – Alex Martinez`,
+      description: project.summary,
+    }),
   };
 }
 
@@ -55,9 +59,12 @@ export default async function ProjectDetailPage({ params }) {
               {project.summary}
             </p>
             <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-800">
-              <img
+              <Image
                 src={project.coverImage}
                 alt={project.title}
+                fill
+                sizes="(min-width: 1024px) 60rem, 100vw"
+                priority
                 className="h-full w-full object-cover"
               />
             </div>

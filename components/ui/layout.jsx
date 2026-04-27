@@ -1,12 +1,12 @@
+import DigitalTwinChat from "@/components/digital-twin-chat";
 import Footer from "./footer/footer";
-// import { Header } from "./header";
 
-export default function Layout({ children }) {
+export default function Layout({ children, lng }) {
   return (
     <div className="relative flex w-full flex-col">
-      {/* <Header /> */}
       <main className="flex-auto">{children}</main>
-      <Footer />
+      <DigitalTwinChat lng={lng} />
+      <Footer lng={lng} />
     </div>
   );
 }

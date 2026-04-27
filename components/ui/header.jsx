@@ -9,6 +9,7 @@ import clsx from "clsx";
 
 import { fallbackLng, languages } from "@/app/i18n/settings";
 import { Container } from "@/components/ui/container";
+import { getShellCopy, getThemeToggleLabel } from "@/lib/shell-copy";
 import avatarImage from "@/public/images/avatar.jpeg";
 
 function SunIcon(props) {
@@ -66,25 +67,15 @@ function isRouteActive(pathname, href, exact = false) {
 }
 
 function getNavItems(locale) {
-  let labels =
-    locale === "es"
-      ? {
-          home: "Inicio",
-          projects: "Proyectos",
-          articles: "Artículos",
-        }
-      : {
-          home: "Home",
-          projects: "Projects",
-          articles: "Articles",
-        };
-
+  let labels = getShellCopy(locale).nav;
   let root = `/${locale}`;
 
   return [
     { href: root, label: labels.home, exact: true },
+    { href: `${root}/about`, label: labels.about, exact: false },
+    { href: `${root}/services`, label: labels.services, exact: false },
     { href: `${root}/projects`, label: labels.projects, exact: false },
-    { href: `${root}/articles`, label: labels.articles, exact: false },
+    { href: `${root}/contact`, label: labels.contact, exact: false },
   ];
 }
 
@@ -109,7 +100,7 @@ function MobileNavItem({ href, children, isActive }) {
 function MobileNavigation({ navItems, pathname, ...props }) {
   return (
     <nav {...props}>
-      <ul className="flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+      <ul className="flex max-w-[calc(100vw-2rem)] items-center gap-1 overflow-x-auto rounded-full bg-white/90 px-2 py-1 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
         {navItems.map((item) => (
           <MobileNavItem
             key={item.href}
@@ -163,19 +154,25 @@ function DesktopNavigation({ navItems, pathname, ...props }) {
   );
 }
 
-function ThemeToggle() {
+function ThemeToggle({ locale }) {
   let { resolvedTheme, setTheme } = useTheme();
   let otherTheme = resolvedTheme === "dark" ? "light" : "dark";
   let [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    let frame = window.requestAnimationFrame(() => {
+      setMounted(true);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
     <button
       type="button"
-      aria-label={mounted ? `Switch to ${otherTheme} theme` : "Toggle theme"}
+      aria-label={getThemeToggleLabel(locale, otherTheme, mounted)}
       className="group rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
       onClick={() => setTheme(otherTheme)}
     >
@@ -418,7 +415,7 @@ export function Header() {
               </div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">
-                  <ThemeToggle />
+        <ThemeToggle locale={locale} />
                 </div>
               </div>
             </div>

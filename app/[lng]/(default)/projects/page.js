@@ -3,10 +3,11 @@ import ContentCard from "@/components/content/content-card";
 import { Header } from "@/components/ui/header";
 import { getSiteCopy } from "@/lib/site-copy";
 import { getProjects } from "@/lib/site-content";
+import { createPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }) {
   const { lng } = await params;
-  return getSiteCopy(lng).projects.metadata;
+  return createPageMetadata(lng, "/projects", getSiteCopy(lng).projects.metadata);
 }
 
 export default async function ProjectsPage({ params }) {

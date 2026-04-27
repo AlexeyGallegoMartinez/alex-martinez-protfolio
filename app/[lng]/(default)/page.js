@@ -12,13 +12,9 @@ import {
   LinkedInIcon,
   XIcon,
 } from "@/components/ui/social-icons";
-import { formatMonthYear } from "@/lib/formatters";
 import { getSiteCopy } from "@/lib/site-copy";
-import { getFeaturedArticles, getFeaturedProjects } from "@/lib/site-content";
-import logoEncore from "@/public/images/logos/encore.jpg";
-import logoFiu from "@/public/images/logos/fiu2.png";
-import logoGE from "@/public/images/logos/ge.jpg";
-import logoUbif from "@/public/images/logos/ubif.png";
+import { getFeaturedProjects } from "@/lib/site-content";
+import { createPageMetadata } from "@/lib/seo";
 import portraitImage from "@/public/images/portrait.png";
 
 const iconMap = {
@@ -29,19 +25,8 @@ const iconMap = {
   email: MailIcon,
 };
 
-const logoMap = {
-  encore: logoEncore,
-  ubif: logoUbif,
-  ge: logoGE,
-  fiu: logoFiu,
-};
-
 function getRoleDateLabel(value) {
   return typeof value === "string" ? value : value.label;
-}
-
-function getRoleDateTime(value) {
-  return typeof value === "string" ? value : value.dateTime;
 }
 
 function getYearNumber(value) {
@@ -75,9 +60,6 @@ function ExperienceSection({ copy }) {
           <ol className="grid w-full gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {roles.map((role, roleIndex) => {
               const startLabel = getRoleDateLabel(role.start);
-              const startDate = getRoleDateTime(role.start);
-              const endLabel = getRoleDateLabel(role.end);
-              const endDate = getRoleDateTime(role.end);
               const summary =
                 role.summary ??
                 `${role.title} focused on practical system delivery and operational reliability.`;
@@ -108,12 +90,6 @@ function ExperienceSection({ copy }) {
                     <p className=" text-xs leading-6 text-zinc-600 dark:text-zinc-400">
                       {summary}
                     </p>
-
-                    {/* <p className="mt-5 text-[0.58rem] font-medium uppercase tracking-[0.2em] text-orange-100 dark:text-orange-100">
-                      <time dateTime={startDate}>{startLabel}</time>{" "}
-                      <span aria-hidden="true">-</span>{" "}
-                      <time dateTime={endDate}>{endLabel}</time>
-                    </p> */}
                   </article>
                 </li>
               );
@@ -128,33 +104,13 @@ function ExperienceSection({ copy }) {
 
 export async function generateMetadata({ params }) {
   const { lng } = await params;
-  return getSiteCopy(lng).home.metadata;
+  return createPageMetadata(lng, "/", getSiteCopy(lng).home.metadata);
 }
 
 export default async function HomePage({ params }) {
   const { lng } = await params;
   const copy = getSiteCopy(lng);
-  const titleLines = Array.isArray(copy.home.titleLines)
-    ? copy.home.titleLines
-    : copy.home.title
-        .split("|")
-        .map((line) => line.trim())
-        .filter(Boolean);
-
-  const featuredArticles = getFeaturedArticles(lng, 3).map((article) => {
-    const published = formatMonthYear(article.publishedAt, lng);
-    const topics = article.tags?.slice(0, 2)?.join(" · ");
-
-    return {
-      href: `/${lng}/articles/${article.slug}`,
-      image: article.coverImage,
-      title: article.title,
-      description: article.summary,
-      eyebrow: article.category,
-      meta: topics ? `${published} · ${topics}` : published,
-      ctaLabel: copy.common.readArticle,
-    };
-  });
+  const titleLines = copy.home.titleLines;
 
   const featuredProjects = getFeaturedProjects(lng, 3).map((project) => {
     const stackPreview = project.stack?.slice(0, 2)?.join(" · ");
@@ -198,11 +154,14 @@ export default async function HomePage({ params }) {
               ))}
             </div>
             <div className="mt-10 flex flex-wrap gap-4">
-              <Button href={`/${lng}/articles`}>
-                {copy.home.ctas.articles}
+              <Button href={`/${lng}/about`} variant="accent">
+                {copy.home.ctas.about}
               </Button>
               <Button href={`/${lng}/projects`} variant="secondary">
                 {copy.home.ctas.projects}
+              </Button>
+              <Button href="/api/download" variant="secondary" download>
+                {copy.home.ctas.downloadCv}
               </Button>
             </div>
           </div>
@@ -261,15 +220,6 @@ export default async function HomePage({ params }) {
         </section>
 
         <ExperienceSection copy={copy} />
-
-        <ContentSection
-          eyebrow={copy.home.featuredArticles.eyebrow}
-          title={copy.home.featuredArticles.title}
-          description={copy.home.featuredArticles.description}
-          items={featuredArticles}
-          ctaHref={`/${lng}/articles`}
-          ctaLabel={copy.home.featuredArticles.cta}
-        />
 
         <ContentSection
           eyebrow={copy.home.selectedProjects.eyebrow}
