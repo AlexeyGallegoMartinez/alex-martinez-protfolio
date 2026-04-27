@@ -79,16 +79,17 @@ function getNavItems(locale) {
   ];
 }
 
-function MobileNavItem({ href, children, isActive }) {
+function MobileNavItem({ href, children, isActive, onClick }) {
   return (
     <li>
       <Link
         href={href}
+        onClick={onClick}
         className={clsx(
-          "block rounded-md px-3 py-2 transition",
+          "block rounded-lg px-3 py-2 text-sm font-medium transition",
           isActive
-            ? "text-orange-500 dark:text-orange-400"
-            : "hover:text-orange-500 dark:hover:text-orange-400"
+            ? "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-300"
+            : "text-zinc-700 hover:bg-zinc-50 hover:text-orange-600 dark:text-zinc-200 dark:hover:bg-zinc-800/70 dark:hover:text-orange-300"
         )}
       >
         {children}
@@ -97,21 +98,75 @@ function MobileNavItem({ href, children, isActive }) {
   );
 }
 
-function MobileNavigation({ navItems, pathname, ...props }) {
+function HamburgerButton({ isOpen, onClick, copy }) {
   return (
-    <nav {...props}>
-      <ul className="flex max-w-[calc(100vw-2rem)] items-center gap-1 overflow-x-auto rounded-full bg-white/90 px-2 py-1 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        {navItems.map((item) => (
-          <MobileNavItem
-            key={item.href}
-            href={item.href}
-            isActive={isRouteActive(pathname, item.href, item.exact)}
-          >
-            {item.label}
-          </MobileNavItem>
-        ))}
-      </ul>
-    </nav>
+    <button
+      type="button"
+      aria-label={isOpen ? copy.closeMenu : copy.menu}
+      aria-expanded={isOpen}
+      onClick={onClick}
+      className="group flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition hover:ring-zinc-300 dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
+    >
+      <span className="relative h-4 w-5">
+        <span
+          className={clsx(
+            "absolute left-0 top-0 h-0.5 w-5 rounded-full bg-zinc-700 transition duration-200 ease-out dark:bg-zinc-200",
+            isOpen && "translate-y-[7px] rotate-45 bg-orange-500 dark:bg-orange-400",
+          )}
+        />
+        <span
+          className={clsx(
+            "absolute left-0 top-[7px] h-0.5 w-5 rounded-full bg-zinc-700 transition duration-150 ease-out dark:bg-zinc-200",
+            isOpen && "opacity-0",
+          )}
+        />
+        <span
+          className={clsx(
+            "absolute bottom-0 left-0 h-0.5 w-5 rounded-full bg-zinc-700 transition duration-200 ease-out dark:bg-zinc-200",
+            isOpen && "-translate-y-[7px] -rotate-45 bg-orange-500 dark:bg-orange-400",
+          )}
+        />
+      </span>
+    </button>
+  );
+}
+
+function MobileNavigation({
+  navItems,
+  pathname,
+  isOpen,
+  onToggle,
+  onClose,
+  copy,
+  ...props
+}) {
+  return (
+    <div className="relative" {...props}>
+      <HamburgerButton isOpen={isOpen} onClick={onToggle} copy={copy} />
+      <nav
+        aria-label={copy.navigation}
+        aria-hidden={!isOpen}
+        className={clsx(
+          "absolute right-0 top-12 w-56 origin-top-right overflow-hidden rounded-2xl border border-zinc-200/70 bg-white/95 p-2 shadow-2xl shadow-zinc-900/15 ring-1 ring-zinc-900/5 backdrop-blur-sm transition duration-200 ease-out dark:border-zinc-700/70 dark:bg-zinc-900/95 dark:shadow-black/30 dark:ring-white/10",
+          isOpen
+            ? "translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none -translate-y-2 scale-95 opacity-0",
+        )}
+      >
+        <ul className="space-y-1">
+          {navItems.map((item) => (
+            <MobileNavItem
+              key={item.href}
+              href={item.href}
+              isActive={isRouteActive(pathname, item.href, item.exact)}
+              onClick={onClose}
+            >
+              {item.label}
+            </MobileNavItem>
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 }
 
@@ -225,9 +280,11 @@ function Avatar({ href = "/", large = false, className, ...props }) {
 export function Header() {
   let pathname = usePathname();
   let locale = getCurrentLocale(pathname);
+  let shellCopy = getShellCopy(locale);
   let navItems = getNavItems(locale);
   let homeHref = navItems[0].href;
   let isHomePage = isRouteActive(pathname, homeHref, true);
+  let [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const useHomeHeroAvatar = false;
 
   let headerRef = useRef(null);
@@ -405,6 +462,10 @@ export function Header() {
                 <MobileNavigation
                   navItems={navItems}
                   pathname={pathname}
+                  isOpen={isMobileNavOpen}
+                  onToggle={() => setIsMobileNavOpen((isOpen) => !isOpen)}
+                  onClose={() => setIsMobileNavOpen(false)}
+                  copy={shellCopy}
                   className="pointer-events-auto md:hidden"
                 />
                 <DesktopNavigation
@@ -415,7 +476,7 @@ export function Header() {
               </div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">
-        <ThemeToggle locale={locale} />
+                  <ThemeToggle locale={locale} />
                 </div>
               </div>
             </div>

@@ -42,7 +42,7 @@ export default async function ServicesPage({ params }) {
                 </p>
               </div>
 
-              <div className="relative min-h-[27rem]">
+              <div className="relative aspect-[4/3] min-h-0 sm:aspect-[16/10] lg:min-h-[27rem] lg:aspect-auto">
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(249,115,22,0.2),transparent_55%)]"
@@ -55,7 +55,7 @@ export default async function ServicesPage({ params }) {
                     sizes="(min-width: 1024px) 42rem, 100vw"
                   />
                 </div>
-                <div className="absolute bottom-12 right-0 w-[58%] overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 shadow-2xl shadow-zinc-900/10 dark:border-white/10 dark:bg-zinc-900 dark:shadow-black/50">
+                <div className="absolute bottom-[14%] right-0 w-[62%] overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 shadow-2xl shadow-zinc-900/10 dark:border-white/10 dark:bg-zinc-900 dark:shadow-black/50 lg:bottom-12 lg:w-[58%]">
                   <Image
                     src={receiptImage}
                     alt="AI receipt analysis interface"
@@ -63,7 +63,7 @@ export default async function ServicesPage({ params }) {
                     sizes="(min-width: 1024px) 30rem, 80vw"
                   />
                 </div>
-                <div className="absolute bottom-0 left-8 w-[52%] overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 shadow-2xl shadow-zinc-900/10 dark:border-white/10 dark:bg-zinc-900 dark:shadow-black/50">
+                <div className="absolute bottom-0 left-[6%] w-[58%] overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 shadow-2xl shadow-zinc-900/10 dark:border-white/10 dark:bg-zinc-900 dark:shadow-black/50 lg:left-8 lg:w-[52%]">
                   <Image
                     src={automationImage}
                     alt="Industrial automation dashboard interface"
