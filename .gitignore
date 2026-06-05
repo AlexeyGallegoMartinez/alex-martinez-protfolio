@@ -23,6 +23,13 @@
 # production
 /build
 
+# local agent/planning docs
+AGENT.md
+AGENTS.md
+/docs/
+/review.md
+/tutorial.md
+
 # misc
 .DS_Store
 *.pem

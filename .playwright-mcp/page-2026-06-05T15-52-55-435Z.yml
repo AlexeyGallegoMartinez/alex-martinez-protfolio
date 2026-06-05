@@ -1,0 +1,101 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e6] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e7]:
+      - img [ref=e8]
+    - generic [ref=e11]:
+      - button "Open issues overlay" [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: "0"
+          - generic [ref=e15]: "1"
+        - generic [ref=e16]: Issue
+      - button "Collapse issues badge" [ref=e17]:
+        - img [ref=e18]
+  - generic [ref=e21]:
+    - main [ref=e22]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - link "Home" [ref=e23] [cursor=pointer]:
+                      - /url: /en
+                    - navigation [ref=e24]:
+                      - list [ref=e25]:
+                        - listitem [ref=e26]:
+                          - link "Home" [ref=e27] [cursor=pointer]:
+                            - /url: /en
+                        - listitem [ref=e28]:
+                          - link "About" [ref=e29] [cursor=pointer]:
+                            - /url: /en/about
+                        - listitem [ref=e30]:
+                          - link "Projects" [ref=e31] [cursor=pointer]:
+                            - /url: /en/projects
+                        - listitem [ref=e32]:
+                          - link "Contact" [ref=e33] [cursor=pointer]:
+                            - /url: /en/contact
+                    - button "Switch to dark theme" [ref=e35]:
+                      - img [ref=e36]
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - paragraph [ref=e45]: Route not found
+          - paragraph [ref=e46]: "404"
+          - heading "Page not found" [level=1] [ref=e47]
+          - paragraph [ref=e48]: This page is not part of the system anymore, or the link is pointing to the wrong place.
+          - generic [ref=e49]:
+            - link "Go back home" [ref=e50] [cursor=pointer]:
+              - /url: /en
+            - link "View projects" [ref=e51] [cursor=pointer]:
+              - /url: /en/projects
+            - link "Contact" [ref=e52] [cursor=pointer]:
+              - /url: /en/contact
+        - generic [ref=e53]:
+          - article [ref=e54]:
+            - paragraph [ref=e55]: "01"
+            - heading "Back to the signal" [level=2] [ref=e56]
+            - paragraph [ref=e57]: The main portfolio is still available with project evidence, career context, and contact options.
+          - article [ref=e58]:
+            - paragraph [ref=e59]: "02"
+            - heading "Route cleaned up" [level=2] [ref=e60]
+            - paragraph [ref=e61]: Some pages are intentionally removed while the site gets sharper and more focused.
+          - article [ref=e62]:
+            - paragraph [ref=e63]: "03"
+            - heading "Still reachable" [level=2] [ref=e64]
+            - paragraph [ref=e65]: Use the contact page if the missing page was something you expected to see.
+    - generic [ref=e66]:
+      - generic:
+        - banner:
+          - generic:
+            - generic:
+              - paragraph: Digital Twin
+              - heading [level=2]: Ask about Alexey
+              - paragraph: Career, projects, skills, and working style.
+            - button:
+              - img
+        - generic:
+          - generic:
+            - generic:
+              - generic: Ask me about Alexey's career, projects, technical strengths, or how he approaches building systems.
+        - generic:
+          - generic:
+            - button: What kind of systems does Alexey build?
+            - button: Summarize Alexey's career journey.
+            - button: What are his strongest technical skills?
+        - generic:
+          - textbox:
+            - /placeholder: Ask a career question...
+          - button [disabled]:
+            - img
+      - generic:
+        - button "Dismiss digital twin greeting":
+          - img
+        - button "Hi there Talk to my AI-powered Digital Twin. Ask about my career, projects, skills, or how I build systems.":
+          - paragraph: Hi there
+          - paragraph: Talk to my AI-powered Digital Twin.
+          - paragraph: Ask about my career, projects, skills, or how I build systems.
+      - button "Open digital twin chat" [ref=e67]:
+        - img [ref=e68]
+    - contentinfo [ref=e71]:
+      - paragraph [ref=e78]: © 2026 Alexey Martinez. All rights reserved.
+  - alert [ref=e79]

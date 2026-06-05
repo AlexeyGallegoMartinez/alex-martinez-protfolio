@@ -49,6 +49,130 @@ function SendIcon(props) {
   );
 }
 
+function normalizeMarkdownText(content) {
+  return String(content ?? "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/([^\n])\s+(-\s+\*\*)/g, "$1\n$2")
+    .trim();
+}
+
+function renderInlineMarkdown(text) {
+  const parts = String(text).split(/(\*\*[^*]+\*\*)/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return (
+        <strong key={`${part}-${index}`} className="font-semibold">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+
+    return part;
+  });
+}
+
+function MessageContent({ content, role }) {
+  if (role !== "assistant") {
+    return <span className="whitespace-pre-wrap break-words">{content}</span>;
+  }
+
+  const lines = normalizeMarkdownText(content).split("\n");
+  const blocks = [];
+  let paragraph = [];
+  let list = null;
+
+  function flushParagraph() {
+    if (paragraph.length === 0) {
+      return;
+    }
+
+    blocks.push({
+      type: "paragraph",
+      text: paragraph.join(" ").trim(),
+    });
+    paragraph = [];
+  }
+
+  function flushList() {
+    if (!list) {
+      return;
+    }
+
+    blocks.push(list);
+    list = null;
+  }
+
+  lines.forEach((line) => {
+    const trimmedLine = line.trim();
+
+    if (!trimmedLine) {
+      flushParagraph();
+      flushList();
+      return;
+    }
+
+    const unorderedMatch = trimmedLine.match(/^[-*]\s+(.+)$/);
+    const orderedMatch = trimmedLine.match(/^\d+[.)]\s+(.+)$/);
+
+    if (unorderedMatch || orderedMatch) {
+      flushParagraph();
+
+      const type = unorderedMatch ? "unordered-list" : "ordered-list";
+      const text = unorderedMatch?.[1] ?? orderedMatch[1];
+
+      if (!list || list.type !== type) {
+        flushList();
+        list = {
+          type,
+          items: [],
+        };
+      }
+
+      list.items.push(text);
+      return;
+    }
+
+    flushList();
+    paragraph.push(trimmedLine);
+  });
+
+  flushParagraph();
+  flushList();
+
+  return (
+    <div className="space-y-3">
+      {blocks.map((block, index) => {
+        if (block.type === "paragraph") {
+          return (
+            <p key={`${block.type}-${index}`} className="break-words">
+              {renderInlineMarkdown(block.text)}
+            </p>
+          );
+        }
+
+        const ListTag = block.type === "ordered-list" ? "ol" : "ul";
+
+        return (
+          <ListTag
+            key={`${block.type}-${index}`}
+            className={clsx(
+              "space-y-2 pl-5",
+              block.type === "ordered-list" ? "list-decimal" : "list-disc",
+            )}
+          >
+            {block.items.map((item, itemIndex) => (
+              <li key={`${item}-${itemIndex}`} className="break-words pl-1">
+                {renderInlineMarkdown(item)}
+              </li>
+            ))}
+          </ListTag>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function DigitalTwinChat({ lng = fallbackLng }) {
   const copy = getSiteCopy(lng).digitalTwin;
   const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +188,8 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
     },
   ]);
   const scrollRef = useRef(null);
+  const typingMessageIdRef = useRef(0);
+  const completedTypingMessageIdRef = useRef(null);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
@@ -80,35 +206,26 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
   }, []);
 
   useEffect(() => {
-    if (!typingMessage) {
+    if (!typingMessage || typingMessage.isComplete) {
       return;
     }
 
-    const nextLength = Math.min(
-      typingMessage.visible.length + 3,
-      typingMessage.content.length,
-    );
+    const activeTypingMessageId = typingMessage.id;
     const timer = window.setTimeout(() => {
       setTypingMessage((current) => {
-        if (!current) {
+        if (!current || current.id !== activeTypingMessageId) {
           return current;
         }
 
-        if (nextLength >= current.content.length) {
-          setMessages((currentMessages) => [
-            ...currentMessages,
-            {
-              role: "assistant",
-              content: current.content,
-            },
-          ]);
-
-          return null;
-        }
+        const nextLength = Math.min(
+          current.visible.length + 3,
+          current.content.length,
+        );
 
         return {
           ...current,
           visible: current.content.slice(0, nextLength),
+          isComplete: nextLength >= current.content.length,
         };
       });
     }, 18);
@@ -116,6 +233,29 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
     return () => {
       window.clearTimeout(timer);
     };
+  }, [typingMessage]);
+
+  useEffect(() => {
+    if (!typingMessage?.isComplete) {
+      return;
+    }
+
+    if (completedTypingMessageIdRef.current === typingMessage.id) {
+      return;
+    }
+
+    completedTypingMessageIdRef.current = typingMessage.id;
+
+    setMessages((currentMessages) => [
+      ...currentMessages,
+      {
+        role: "assistant",
+        content: typingMessage.content,
+      },
+    ]);
+    setTypingMessage((current) =>
+      current?.id === typingMessage.id ? null : current,
+    );
   }, [typingMessage]);
 
   function openChat() {
@@ -155,8 +295,13 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
         throw new Error(data?.error ?? copy.unavailableError);
       }
 
+      const nextTypingMessageId = typingMessageIdRef.current + 1;
+      typingMessageIdRef.current = nextTypingMessageId;
+
       setTypingMessage({
+        id: nextTypingMessageId,
         content: data.message.content,
+        isComplete: false,
         visible: "",
       });
     } catch (error) {
@@ -228,14 +373,20 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
                       : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200",
                   )}
                 >
-                  {message.content}
+                  <MessageContent
+                    content={message.content}
+                    role={message.role}
+                  />
                 </div>
               </div>
             ))}
             {typingMessage ? (
               <div className="flex justify-start">
                 <div className="max-w-[85%] rounded-2xl bg-zinc-100 px-4 py-3 text-sm leading-6 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">
-                  {typingMessage.visible}
+                  <MessageContent
+                    content={typingMessage.visible}
+                    role="assistant"
+                  />
                   <span className="ml-0.5 inline-block h-4 w-1 translate-y-0.5 animate-pulse rounded-full bg-orange-500" />
                 </div>
               </div>
@@ -282,6 +433,7 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
           <input
             value={input}
             onChange={(event) => setInput(event.target.value)}
+            maxLength={1200}
             className="min-w-0 flex-1 rounded-full border border-zinc-200 bg-zinc-50 px-4 py-2 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-orange-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-orange-400 dark:focus:bg-zinc-950"
             placeholder={copy.placeholder}
             aria-label={copy.inputLabel}

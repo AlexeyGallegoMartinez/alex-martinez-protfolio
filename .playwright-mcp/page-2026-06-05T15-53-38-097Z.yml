@@ -1,0 +1,101 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e6] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e7]:
+      - img [ref=e8]
+    - generic [ref=e11]:
+      - button "Open issues overlay" [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: "0"
+          - generic [ref=e15]: "1"
+        - generic [ref=e16]: Issue
+      - button "Collapse issues badge" [ref=e17]:
+        - img [ref=e18]
+  - generic [ref=e21]:
+    - main [ref=e22]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - link "Home" [ref=e23] [cursor=pointer]:
+                      - /url: /es
+                    - navigation [ref=e24]:
+                      - list [ref=e25]:
+                        - listitem [ref=e26]:
+                          - link "Inicio" [ref=e27] [cursor=pointer]:
+                            - /url: /es
+                        - listitem [ref=e28]:
+                          - link "Sobre mí" [ref=e29] [cursor=pointer]:
+                            - /url: /es/about
+                        - listitem [ref=e30]:
+                          - link "Proyectos" [ref=e31] [cursor=pointer]:
+                            - /url: /es/projects
+                        - listitem [ref=e32]:
+                          - link "Contacto" [ref=e33] [cursor=pointer]:
+                            - /url: /es/contact
+                    - button "Cambiar al tema oscuro" [ref=e35]:
+                      - img [ref=e36]
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - paragraph [ref=e45]: Ruta no encontrada
+          - paragraph [ref=e46]: "404"
+          - heading "Página no encontrada" [level=1] [ref=e47]
+          - paragraph [ref=e48]: Esta pagina ya no forma parte del sistema, o el enlace apunta al lugar equivocado.
+          - generic [ref=e49]:
+            - link "Volver al inicio" [ref=e50] [cursor=pointer]:
+              - /url: /es
+            - link "Ver proyectos" [ref=e51] [cursor=pointer]:
+              - /url: /es/projects
+            - link "Contacto" [ref=e52] [cursor=pointer]:
+              - /url: /es/contact
+        - generic [ref=e53]:
+          - article [ref=e54]:
+            - paragraph [ref=e55]: "01"
+            - heading "Volver a lo importante" [level=2] [ref=e56]
+            - paragraph [ref=e57]: El portfolio principal sigue disponible con evidencia de proyectos, contexto de carrera y opciones de contacto.
+          - article [ref=e58]:
+            - paragraph [ref=e59]: "02"
+            - heading "Ruta limpiada" [level=2] [ref=e60]
+            - paragraph [ref=e61]: Algunas paginas se eliminan intencionalmente mientras el sitio se vuelve mas enfocado.
+          - article [ref=e62]:
+            - paragraph [ref=e63]: "03"
+            - heading "Sigo disponible" [level=2] [ref=e64]
+            - paragraph [ref=e65]: Usa la pagina de contacto si la pagina faltante era algo que esperabas ver.
+    - generic [ref=e66]:
+      - generic:
+        - banner:
+          - generic:
+            - generic:
+              - paragraph: Digital Twin
+              - heading [level=2]: Pregunta sobre Alexey
+              - paragraph: Carrera, proyectos, habilidades y estilo de trabajo.
+            - button:
+              - img
+        - generic:
+          - generic:
+            - generic:
+              - generic: Pregúntame sobre la carrera, proyectos, fortalezas técnicas o forma de construir sistemas de Alexey.
+        - generic:
+          - generic:
+            - button: ¿Qué tipo de sistemas construye Alexey?
+            - button: Resume la trayectoria profesional de Alexey.
+            - button: ¿Cuáles son sus fortalezas técnicas principales?
+        - generic:
+          - textbox:
+            - /placeholder: Haz una pregunta sobre carrera...
+          - button [disabled]:
+            - img
+      - generic:
+        - button "Cerrar saludo del digital twin":
+          - img
+        - button "Hola Habla con mi Digital Twin impulsado por IA. Pregunta sobre mi carrera, proyectos, habilidades o cómo construyo sistemas.":
+          - paragraph: Hola
+          - paragraph: Habla con mi Digital Twin impulsado por IA.
+          - paragraph: Pregunta sobre mi carrera, proyectos, habilidades o cómo construyo sistemas.
+      - button "Abrir chat del digital twin" [ref=e67]:
+        - img [ref=e68]
+    - contentinfo [ref=e71]:
+      - paragraph [ref=e78]: © 2026 Alexey Martinez. Todos los derechos reservados.
+  - alert [ref=e79]

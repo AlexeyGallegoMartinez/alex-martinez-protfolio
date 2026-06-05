@@ -22,7 +22,7 @@ export async function generateMetadata({ params }) {
 
   return {
     ...createPageMetadata(lng, `/projects/${slug}`, {
-      title: `${project.title} – Alex Martinez`,
+      title: `${project.title} – Alexey Martinez`,
       description: project.summary,
     }),
   };

@@ -1,32 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-function ActionArrowIcon({ className }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 16 16"
-      fill="none"
-      className={className}
-    >
-      <path
-        d="M4.75 11.25L11.25 4.75"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M6 4.75H11.25V10"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export default function ContentCard({
   href,
   image,
@@ -67,7 +41,6 @@ export default function ContentCard({
           <div className="mt-4 flex justify-end">
             <span className="inline-flex items-center gap-2 rounded-full border border-orange-200/80 bg-orange-50 px-3 py-1.5 text-sm font-semibold text-orange-600 shadow-sm shadow-orange-100/50 transition duration-300 group-hover:border-orange-300 group-hover:bg-orange-100 group-hover:text-orange-700 dark:border-orange-400/20 dark:bg-orange-500/10 dark:text-orange-300 dark:shadow-none dark:group-hover:border-orange-300/30 dark:group-hover:bg-orange-500/15 dark:group-hover:text-orange-200">
               {ctaLabel}
-              <ActionArrowIcon className="size-4 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
           </div>
         </div>

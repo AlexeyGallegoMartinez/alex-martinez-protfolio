@@ -1,0 +1,230 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - main [ref=e4]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - link "Home" [ref=e5] [cursor=pointer]:
+                      - /url: /en
+                    - navigation [ref=e6]:
+                      - list [ref=e7]:
+                        - listitem [ref=e8]:
+                          - link "Home" [ref=e9] [cursor=pointer]:
+                            - /url: /en
+                            - text: Home
+                        - listitem [ref=e11]:
+                          - link "About" [ref=e12] [cursor=pointer]:
+                            - /url: /en/about
+                        - listitem [ref=e13]:
+                          - link "Projects" [ref=e14] [cursor=pointer]:
+                            - /url: /en/projects
+                        - listitem [ref=e15]:
+                          - link "Contact" [ref=e16] [cursor=pointer]:
+                            - /url: /en/contact
+                    - button "Switch to dark theme" [ref=e18]:
+                      - img [ref=e19]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - heading "Engineer. Builder. Problem Solver." [level=1] [ref=e28]:
+              - generic [ref=e29]: Engineer.
+              - generic [ref=e30]: Builder.
+              - generic [ref=e31]: Problem Solver.
+            - generic [ref=e32]:
+              - paragraph [ref=e33]: I am a bilingual systems builder based in Miami, relocating from Michigan, and available for on-site opportunities across Miami, Fort Lauderdale, and South Florida.
+              - paragraph [ref=e34]: "I use software, AI, automation, and engineering to solve business problems: ERP workflows, internal operations platforms, AI-assisted receipt analysis, robot data pipelines, product-development systems, and reliable self-hosted infrastructure."
+              - paragraph [ref=e35]: "The through-line is ownership: find the operational bottleneck, design the system, build it, deploy it, measure the outcome, and keep improving it."
+            - generic [ref=e36]:
+              - link "See projects" [ref=e37] [cursor=pointer]:
+                - /url: /en/projects
+              - link "About me" [ref=e38] [cursor=pointer]:
+                - /url: /en/about
+              - link "Contact" [ref=e39] [cursor=pointer]:
+                - /url: /en/contact
+              - link "Download CV" [ref=e40] [cursor=pointer]:
+                - /url: /api/download
+          - complementary [ref=e41]:
+            - img [ref=e42]
+            - generic [ref=e43]:
+              - heading "Ready for South Florida" [level=2] [ref=e44]
+              - paragraph [ref=e45]: Based in Miami, relocating from Michigan, and available for on-site software, AI, systems, and business operations work across Miami, Fort Lauderdale, and South Florida.
+            - list [ref=e46]:
+              - listitem [ref=e47]:
+                - link "Follow on X" [ref=e48] [cursor=pointer]:
+                  - /url: https://x.com/alexmar19190
+                  - img [ref=e49]
+                  - generic [ref=e51]: Follow on X
+              - listitem [ref=e52]:
+                - link "Follow on Instagram" [ref=e53] [cursor=pointer]:
+                  - /url: https://www.instagram.com/alexeygallegomartinez/
+                  - img [ref=e54]
+                  - generic [ref=e57]: Follow on Instagram
+              - listitem [ref=e58]:
+                - link "Follow on GitHub" [ref=e59] [cursor=pointer]:
+                  - /url: https://github.com/AlexeyGallegoMartinez
+                  - img [ref=e60]
+                  - generic [ref=e62]: Follow on GitHub
+              - listitem [ref=e63]:
+                - link "Follow on LinkedIn" [ref=e64] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/alexey-martinez/
+                  - img [ref=e65]
+                  - generic [ref=e67]: Follow on LinkedIn
+              - listitem [ref=e68]:
+                - link "alexeygallegomartinez@gmail.com" [ref=e69] [cursor=pointer]:
+                  - /url: mailto:alexeygallegomartinez@gmail.com
+                  - img [ref=e70]
+                  - generic [ref=e72]: alexeygallegomartinez@gmail.com
+        - generic [ref=e73]:
+          - generic [ref=e74]:
+            - generic [ref=e75]:
+              - paragraph [ref=e76]: Case Studies
+              - heading "Results tied to the work" [level=2] [ref=e77]
+              - paragraph [ref=e78]: "Metrics only matter when the story is clear. These are the projects behind the outcomes: what was built, what changed, and where to read the full case study."
+            - link "See all projects" [ref=e79] [cursor=pointer]:
+              - /url: /en/projects
+          - generic [ref=e80]:
+            - 'link "Explore project: Enterprise ERP System" [ref=e81] [cursor=pointer]':
+              - /url: /en/projects/enterprise-erp-system
+              - article [ref=e82]:
+                - generic [ref=e83]:
+                  - img "Enterprise ERP System" [ref=e84]
+                  - generic [ref=e86]: Enterprise ERP
+                - generic [ref=e87]:
+                  - paragraph [ref=e88]: Technical Lead / Full-Stack Engineer
+                  - heading "Enterprise ERP System" [level=3] [ref=e89]
+                  - paragraph [ref=e90]: A role-based ERP system bringing employee work, service logs, time cards, expenses, calendar, purchasing, receiving, inventory, and management consoles into one platform.
+                  - generic [ref=e91]:
+                    - paragraph [ref=e92]: What changed
+                    - paragraph [ref=e93]: I am leading the architecture and delivery while coordinating a small engineering team around reusable domain modules, role-aware navigation, and daily workflow surfaces.
+                  - generic [ref=e94]:
+                    - generic [ref=e95]:
+                      - paragraph [ref=e96]: 8+ role consoles
+                      - paragraph [ref=e97]: Unified access paths
+                    - generic [ref=e98]:
+                      - paragraph [ref=e99]: 12+ workflow areas
+                      - paragraph [ref=e100]: Operations covered
+                  - generic [ref=e101]: Explore project
+            - 'link "Explore project: Internal Operations Platform: Time, Expenses, Events, Approvals" [ref=e102] [cursor=pointer]':
+              - /url: /en/projects/timesheet-and-expense-platform
+              - article [ref=e103]:
+                - generic [ref=e104]:
+                  - 'img "Internal Operations Platform: Time, Expenses, Events, Approvals" [ref=e105]'
+                  - generic [ref=e107]: Operations platform
+                - generic [ref=e108]:
+                  - paragraph [ref=e109]: Systems Builder / Full-Stack Engineer
+                  - 'heading "Internal Operations Platform: Time, Expenses, Events, Approvals" [level=3] [ref=e110]'
+                  - paragraph [ref=e111]: A company-wide internal system replacing spreadsheet-driven time, expense, event, deadline, reporting, and approval workflows.
+                  - generic [ref=e112]:
+                    - paragraph [ref=e113]: What changed
+                    - paragraph [ref=e114]: I owned the full production build across frontend, backend, database, authentication, deployment, and day-to-day operation.
+                  - generic [ref=e115]:
+                    - generic [ref=e116]:
+                      - paragraph [ref=e117]: 70% to 95%
+                      - paragraph [ref=e118]: Timesheet compliance
+                    - generic [ref=e119]:
+                      - paragraph [ref=e120]: 50% to 90%
+                      - paragraph [ref=e121]: Expense compliance
+                  - generic [ref=e122]: Explore project
+            - 'link "Explore project: Cap Analyzer (UV Sealer)" [ref=e123] [cursor=pointer]':
+              - /url: /en/projects/cap-analyzer-uv-sealer
+              - article [ref=e124]:
+                - generic [ref=e125]:
+                  - img "Cap Analyzer (UV Sealer)" [ref=e126]
+                  - generic [ref=e128]: Robot data tool
+                - generic [ref=e129]:
+                  - paragraph [ref=e130]: Python Developer
+                  - heading "Cap Analyzer (UV Sealer)" [level=3] [ref=e131]
+                  - paragraph [ref=e132]: A Python desktop application connected to a FANUC UV sealer robot to capture load-cell traces, analyze pass/fail outcomes, and store searchable batch history.
+                  - generic [ref=e133]:
+                    - paragraph [ref=e134]: What changed
+                    - paragraph [ref=e135]: I built the operator workflow, robot communication, MongoDB persistence, threaded collection, trace normalization, and per-cap visualization.
+                  - generic [ref=e137]:
+                    - paragraph [ref=e138]: 80% to 99%
+                    - paragraph [ref=e139]: Process reliability
+                  - generic [ref=e140]: Explore project
+            - 'link "Explore project: ReceiptReader: AI receipt analysis feasibility MVP" [ref=e141] [cursor=pointer]':
+              - /url: /en/projects/receipt-reader-ai-feasibility-mvp
+              - article [ref=e142]:
+                - generic [ref=e143]:
+                  - 'img "ReceiptReader: AI receipt analysis feasibility MVP" [ref=e144]'
+                  - generic [ref=e146]: AI workflow
+                - generic [ref=e147]:
+                  - paragraph [ref=e148]: AI Integration / Full-Stack Engineer
+                  - 'heading "ReceiptReader: AI receipt analysis feasibility MVP" [level=3] [ref=e149]'
+                  - paragraph [ref=e150]: A focused MVP proving receipt images could move through upload, OpenAI analysis, structured extraction, persistence, and expense matching.
+                  - generic [ref=e151]:
+                    - paragraph [ref=e152]: What changed
+                    - paragraph [ref=e153]: I validated the AI path before a larger build, turning receipt review into a practical human-verified workflow instead of a raw OCR experiment.
+                  - generic [ref=e155]:
+                    - paragraph [ref=e156]: 1 day to 1-2h
+                    - paragraph [ref=e157]: Receipt review time
+                  - generic [ref=e158]: Explore project
+        - paragraph [ref=e161]: The win is not a prettier dashboard. The win is a business that knows what is happening without another meeting, another spreadsheet, or another person manually checking the same thing twice.
+        - generic [ref=e163]:
+          - generic [ref=e164]:
+            - paragraph [ref=e165]: Career Journey
+            - heading "Mechanical roots, software ownership, business outcomes" [level=2] [ref=e166]
+            - paragraph [ref=e167]: My path runs through robotics-focused mechanical engineering, product development, plant-floor automation, and now full-stack systems work where correctness, clarity, maintainability, and business impact all matter.
+          - list [ref=e169]:
+            - listitem [ref=e170]:
+              - paragraph [ref=e173]: Jan 2019
+              - article [ref=e175]:
+                - paragraph [ref=e177]: Florida International University
+                - heading "Statics Learning Assistant" [level=3] [ref=e178]
+                - paragraph [ref=e179]: Taught engineering fundamentals by helping students apply calculus and physics to statics problems.
+            - listitem [ref=e180]:
+              - paragraph [ref=e183]: Jan 2020
+              - article [ref=e185]:
+                - paragraph [ref=e187]: GE Appliances
+                - heading "Technology Co-Op" [level=3] [ref=e188]
+                - paragraph [ref=e189]: Built an internal MVC progress-dashboard platform while supporting A/C ductless performance work, component design, testing, and product validation.
+            - listitem [ref=e190]:
+              - paragraph [ref=e193]: Jul 2020
+              - article [ref=e195]:
+                - paragraph [ref=e197]: ubreakifix
+                - heading "Tech Leader / Manager" [level=3] [ref=e198]
+                - paragraph [ref=e199]: Led technician and customer-service operations, improved workflow performance, grew revenue through process tracking, and managed certified device repair plus inventory.
+            - listitem [ref=e200]:
+              - paragraph [ref=e203]: Jul 2021
+              - article [ref=e204]:
+                - paragraph [ref=e206]: Encore Automation
+                - heading "Systems & Software Engineer" [level=3] [ref=e207]
+                - paragraph [ref=e208]: Progressed from product development, automation, and robotics into software architecture, ERP leadership, AI adoption, technical mentorship, and production Docker/Linux systems.
+    - generic [ref=e209]:
+      - generic [ref=e240]:
+        - banner [ref=e241]:
+          - generic [ref=e242]:
+            - generic [ref=e243]:
+              - paragraph [ref=e244]: Digital Twin
+              - heading "Ask about Alexey" [level=2] [ref=e245]
+              - paragraph [ref=e246]: Career, projects, skills, and working style.
+            - button "Close digital twin chat" [ref=e247]:
+              - img [ref=e248]
+        - paragraph [ref=e255]: Ask me about Alexey's career, projects, technical strengths, or how he approaches building systems.
+        - generic [ref=e257]:
+          - button "What kind of systems does Alexey build?" [ref=e258]
+          - button "Summarize Alexey's career journey." [ref=e259]
+          - button "What are his strongest technical skills?" [ref=e260]
+        - generic [ref=e261]:
+          - textbox "Ask the digital twin a question" [ref=e262]:
+            - /placeholder: Ask a career question...
+          - button "Send message" [disabled] [ref=e263]:
+            - img [ref=e264]
+      - generic:
+        - button "Dismiss digital twin greeting":
+          - img
+        - button "Hi there Talk to my AI-powered Digital Twin. Ask about my career, projects, skills, or how I build systems.":
+          - paragraph: Hi there
+          - paragraph: Talk to my AI-powered Digital Twin.
+          - paragraph: Ask about my career, projects, skills, or how I build systems.
+      - button "Close digital twin chat" [expanded] [active] [ref=e266]:
+        - img [ref=e267]
+    - contentinfo [ref=e214]:
+      - paragraph [ref=e221]: © 2026 Alexey Martinez. All rights reserved.
+  - button "Open Next.js Dev Tools" [ref=e227] [cursor=pointer]:
+    - img [ref=e228]
+  - alert [ref=e231]

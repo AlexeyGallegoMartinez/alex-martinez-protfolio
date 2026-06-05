@@ -1,0 +1,94 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - generic [ref=e12]:
+    - main [ref=e13]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - link "Home" [ref=e14] [cursor=pointer]:
+                      - /url: /en
+                    - navigation [ref=e15]:
+                      - list [ref=e16]:
+                        - listitem [ref=e17]:
+                          - link "Home" [ref=e18] [cursor=pointer]:
+                            - /url: /en
+                        - listitem [ref=e19]:
+                          - link "About" [ref=e20] [cursor=pointer]:
+                            - /url: /en/about
+                        - listitem [ref=e21]:
+                          - link "Projects" [ref=e22] [cursor=pointer]:
+                            - /url: /en/projects
+                        - listitem [ref=e23]:
+                          - link "Contact" [ref=e24] [cursor=pointer]:
+                            - /url: /en/contact
+                    - button "Switch to dark theme" [ref=e26]:
+                      - img [ref=e27]
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - paragraph [ref=e36]: Route not found
+          - paragraph [ref=e37]: "404"
+          - heading "Page not found" [level=1] [ref=e38]
+          - paragraph [ref=e39]: This page is not part of the system anymore, or the link is pointing to the wrong place.
+          - generic [ref=e40]:
+            - link "Go back home" [ref=e41] [cursor=pointer]:
+              - /url: /en
+            - link "View projects" [ref=e42] [cursor=pointer]:
+              - /url: /en/projects
+            - link "Contact" [ref=e43] [cursor=pointer]:
+              - /url: /en/contact
+        - generic [ref=e44]:
+          - article [ref=e45]:
+            - paragraph [ref=e46]: "01"
+            - heading "Back to the signal" [level=2] [ref=e47]
+            - paragraph [ref=e48]: The main portfolio is still available with project evidence, career context, and contact options.
+          - article [ref=e49]:
+            - paragraph [ref=e50]: "02"
+            - heading "Route cleaned up" [level=2] [ref=e51]
+            - paragraph [ref=e52]: Some pages are intentionally removed while the site gets sharper and more focused.
+          - article [ref=e53]:
+            - paragraph [ref=e54]: "03"
+            - heading "Still reachable" [level=2] [ref=e55]
+            - paragraph [ref=e56]: Use the contact page if the missing page was something you expected to see.
+    - generic [ref=e57]:
+      - generic:
+        - banner:
+          - generic:
+            - generic:
+              - paragraph: Digital Twin
+              - heading [level=2]: Ask about Alexey
+              - paragraph: Career, projects, skills, and working style.
+            - button:
+              - img
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: Ask me about Alexey's career, projects, technical strengths, or how he approaches building systems.
+        - generic:
+          - generic:
+            - button: What kind of systems does Alexey build?
+            - button: Summarize Alexey's career journey.
+            - button: What are his strongest technical skills?
+        - generic:
+          - textbox:
+            - /placeholder: Ask a career question...
+          - button [disabled]:
+            - img
+      - generic:
+        - button "Dismiss digital twin greeting":
+          - img
+        - button "Hi there Talk to my AI-powered Digital Twin. Ask about my career, projects, skills, or how I build systems.":
+          - paragraph: Hi there
+          - paragraph: Talk to my AI-powered Digital Twin.
+          - paragraph: Ask about my career, projects, skills, or how I build systems.
+      - button "Open digital twin chat" [ref=e58]:
+        - img [ref=e59]
+    - contentinfo [ref=e62]:
+      - paragraph [ref=e69]: © 2026 Alexey Martinez. All rights reserved.
+  - alert [ref=e70]

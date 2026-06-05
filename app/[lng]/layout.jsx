@@ -1,11 +1,12 @@
+import "./globals.css";
+
 import Layout from "@/components/ui/layout";
-import { LangAttribute } from "@/components/ui/lang-attribute";
 import { languages } from "../i18n/settings";
 import { Providers } from "../providers";
 
 export const metadata = {
-  title: "Alex Site",
-  description: "Alexey Personal Website Portfolio",
+  title: "Alex Portfolio",
+  description: "Alexey Gallego Martinez Personal Portfolio",
   // icons: {
   //   icon: "/icon.png", // Path to your favicon in the public folder
   // },
@@ -17,11 +18,14 @@ export async function generateStaticParams() {
 export default async function LangLayout({ children, params }) {
   const { lng } = await params;
   return (
-    <Providers>
-      <LangAttribute lng={lng} />
-      <div className="flex w-full">
-        <Layout lng={lng}>{children}</Layout>
-      </div>
-    </Providers>
+    <html lang={lng} className="h-full antialiased" suppressHydrationWarning>
+      <body className="flex h-full bg-zinc-50 dark:bg-zinc-950">
+        <Providers>
+          <div className="flex w-full">
+            <Layout lng={lng}>{children}</Layout>
+          </div>
+        </Providers>
+      </body>
+    </html>
   );
 }

@@ -2,7 +2,7 @@ import { languages } from "@/app/i18n/settings";
 import { getProjectSlugs } from "@/lib/site-content";
 import { getSiteOrigin } from "@/lib/seo";
 
-const staticPaths = ["", "/about", "/services", "/projects", "/contact"];
+const staticPaths = ["", "/about", "/projects", "/contact"];
 
 export default function sitemap() {
   const origin = getSiteOrigin();

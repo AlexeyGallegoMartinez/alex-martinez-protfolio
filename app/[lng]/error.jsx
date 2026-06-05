@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 import { fallbackLng, languages } from "@/app/i18n/settings";
@@ -13,30 +14,36 @@ function getLocaleFromPathname(pathname) {
   return languages.includes(maybeLocale) ? maybeLocale : fallbackLng;
 }
 
-export default function NotFound() {
+export default function Error({ error, reset }) {
   const pathname = usePathname();
   const lng = getLocaleFromPathname(pathname);
-  const copy = getSiteCopy(lng).notFound;
+  const copy = getSiteCopy(lng).errorPage;
+
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
 
   return (
     <>
       <Header />
       <FallbackScreen
-        code="404"
-        eyebrow={copy.eyebrow ?? "Route not found"}
+        code="500"
+        eyebrow={copy.eyebrow}
         title={copy.title}
         description={copy.description}
+        resetLabel={copy.retryAction}
+        onReset={reset}
         primaryAction={{
           href: `/${lng}`,
-          label: copy.action,
+          label: copy.homeAction,
         }}
         secondaryAction={{
           href: `/${lng}/projects`,
-          label: copy.projectsAction ?? "View projects",
+          label: copy.projectsAction,
         }}
         tertiaryAction={{
           href: `/${lng}/contact`,
-          label: copy.contactAction ?? "Contact",
+          label: copy.contactAction,
         }}
         checks={copy.checks}
       />

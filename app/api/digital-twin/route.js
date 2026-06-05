@@ -2,14 +2,33 @@ import { digitalTwinSystemPrompt } from "@/lib/digital-twin-context";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const MODEL = "openai/gpt-oss-120b";
-const MAX_MESSAGES = 12;
+const MAX_USER_MESSAGES = 6;
 const MAX_CONTENT_LENGTH = 1200;
+const MAX_BODY_LENGTH = 20_000;
 const REQUEST_TIMEOUT_MS = 25_000;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 8;
+const RATE_LIMIT_MAX_BUCKETS = 500;
 const rateLimitBuckets = globalThis.digitalTwinRateLimitBuckets ?? new Map();
 
 globalThis.digitalTwinRateLimitBuckets = rateLimitBuckets;
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+const jsonHeaders = {
+  "Cache-Control": "no-store",
+};
+
+function json(data, init = {}) {
+  return Response.json(data, {
+    ...init,
+    headers: {
+      ...jsonHeaders,
+      ...init.headers,
+    },
+  });
+}
 
 function sanitizeMessages(messages) {
   if (!Array.isArray(messages)) {
@@ -17,10 +36,10 @@ function sanitizeMessages(messages) {
   }
 
   return messages
-    .filter((message) => message?.role === "user" || message?.role === "assistant")
-    .slice(-MAX_MESSAGES)
+    .filter((message) => message?.role === "user")
+    .slice(-MAX_USER_MESSAGES)
     .map((message) => ({
-      role: message.role,
+      role: "user",
       content: String(message.content ?? "").slice(0, MAX_CONTENT_LENGTH),
     }))
     .filter((message) => message.content.trim().length > 0);
@@ -37,6 +56,12 @@ function getSiteUrl() {
 }
 
 function getClientIp(request) {
+  const cloudflareIp = request.headers.get("cf-connecting-ip");
+
+  if (cloudflareIp) {
+    return cloudflareIp.trim();
+  }
+
   const forwardedFor = request.headers.get("x-forwarded-for");
 
   if (forwardedFor) {
@@ -56,10 +81,24 @@ function isAllowedOrigin(request) {
   return !origin || allowedOrigins.has(origin);
 }
 
+function pruneRateLimitBuckets(now) {
+  if (rateLimitBuckets.size <= RATE_LIMIT_MAX_BUCKETS) {
+    return;
+  }
+
+  for (const [key, bucket] of rateLimitBuckets.entries()) {
+    if (now > bucket.resetAt) {
+      rateLimitBuckets.delete(key);
+    }
+  }
+}
+
 function checkRateLimit(request) {
   const now = Date.now();
   const ip = getClientIp(request);
   const bucket = rateLimitBuckets.get(ip);
+
+  pruneRateLimitBuckets(now);
 
   if (!bucket || now > bucket.resetAt) {
     rateLimitBuckets.set(ip, {
@@ -81,18 +120,30 @@ export async function POST(request) {
   const apiKey = process.env.OPENROUTER_API_KEY;
 
   if (!isAllowedOrigin(request)) {
-    return Response.json({ error: "Origin is not allowed." }, { status: 403 });
+    return json({ error: "Origin is not allowed." }, { status: 403 });
+  }
+
+  const contentType = request.headers.get("content-type") ?? "";
+
+  if (!contentType.toLowerCase().includes("application/json")) {
+    return json({ error: "Request body must be JSON." }, { status: 415 });
+  }
+
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+
+  if (contentLength > MAX_BODY_LENGTH) {
+    return json({ error: "Request body is too large." }, { status: 413 });
   }
 
   if (!checkRateLimit(request)) {
-    return Response.json(
+    return json(
       { error: "Too many requests. Please try again shortly." },
       { status: 429 },
     );
   }
 
   if (!apiKey) {
-    return Response.json(
+    return json(
       { error: "OpenRouter is not configured." },
       { status: 500 },
     );
@@ -103,13 +154,26 @@ export async function POST(request) {
   try {
     body = await request.json();
   } catch {
-    return Response.json({ error: "Invalid request body." }, { status: 400 });
+    return json({ error: "Invalid request body." }, { status: 400 });
+  }
+
+  if (!Array.isArray(body.messages)) {
+    return json({ error: "Messages must be an array." }, { status: 400 });
+  }
+
+  const lastMessage = body.messages.at(-1);
+
+  if (lastMessage?.role !== "user") {
+    return json(
+      { error: "Send a user message to chat with the digital twin." },
+      { status: 400 },
+    );
   }
 
   const messages = sanitizeMessages(body.messages);
 
-  if (messages.length === 0 || messages[messages.length - 1].role !== "user") {
-    return Response.json(
+  if (messages.length === 0) {
+    return json(
       { error: "Send a user message to chat with the digital twin." },
       { status: 400 },
     );
@@ -151,35 +215,37 @@ export async function POST(request) {
         message: data?.error?.message,
       });
 
-      return Response.json(
-        {
-          error:
-            data?.error?.message ??
-            "The digital twin is temporarily unavailable.",
-        },
-        { status: response.status },
+      return json(
+        { error: "The digital twin is temporarily unavailable." },
+        { status: 502 },
       );
     }
 
     const content = data?.choices?.[0]?.message?.content?.trim();
 
     if (!content) {
-      return Response.json(
+      return json(
         { error: "The digital twin did not return a response." },
         { status: 502 },
       );
     }
 
-    return Response.json({ message: { role: "assistant", content } });
+    return json({ message: { role: "assistant", content } });
   } catch (error) {
     console.warn("Digital twin upstream request failed", {
       name: error?.name,
       message: error?.message,
     });
 
-    return Response.json(
-      { error: "Unable to reach the digital twin right now." },
-      { status: 502 },
+    const isTimeout = error?.name === "AbortError";
+
+    return json(
+      {
+        error: isTimeout
+          ? "The digital twin timed out. Please try again."
+          : "Unable to reach the digital twin right now.",
+      },
+      { status: isTimeout ? 504 : 502 },
     );
   }
 }

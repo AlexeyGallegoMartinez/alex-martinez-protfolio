@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 import clsx from "clsx";
 
 import { fallbackLng, languages } from "@/app/i18n/settings";
+import { useTheme } from "@/app/providers";
 import { Container } from "@/components/ui/container";
 import { getShellCopy, getThemeToggleLabel } from "@/lib/shell-copy";
 import avatarImage from "@/public/images/avatar.jpeg";
@@ -73,7 +73,6 @@ function getNavItems(locale) {
   return [
     { href: root, label: labels.home, exact: true },
     { href: `${root}/about`, label: labels.about, exact: false },
-    { href: `${root}/services`, label: labels.services, exact: false },
     { href: `${root}/projects`, label: labels.projects, exact: false },
     { href: `${root}/contact`, label: labels.contact, exact: false },
   ];
