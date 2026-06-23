@@ -317,12 +317,12 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
   }
 
   return (
-    <div className="fixed inset-x-4 bottom-4 z-50 flex flex-col items-end sm:left-auto sm:right-6 sm:bottom-6">
+    <div className="pointer-events-none fixed inset-x-4 bottom-4 z-50 flex flex-col items-end sm:left-auto sm:right-6 sm:bottom-6">
       <div
         className={clsx(
           "mb-4 w-full max-w-md overflow-hidden rounded-3xl border border-zinc-200/70 bg-white shadow-2xl shadow-zinc-900/20 transition duration-200 dark:border-zinc-700/70 dark:bg-zinc-900 dark:shadow-black/40",
           isOpen
-            ? "translate-y-0 opacity-100"
+            ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none translate-y-3 opacity-0",
         )}
         aria-hidden={!isOpen}
@@ -451,9 +451,9 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
 
       <div
         className={clsx(
-          "absolute bottom-20 right-0 w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-zinc-200/70 bg-white p-4 shadow-xl shadow-zinc-900/15 transition duration-200 dark:border-zinc-700/70 dark:bg-zinc-900 dark:shadow-black/30",
+          "absolute bottom-20 right-0 hidden w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-zinc-200/70 bg-white p-4 shadow-xl shadow-zinc-900/15 transition duration-200 dark:border-zinc-700/70 dark:bg-zinc-900 dark:shadow-black/30 sm:block",
           isGreetingVisible && !isOpen
-            ? "translate-y-0 opacity-100"
+            ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none translate-y-2 opacity-0",
         )}
       >
@@ -488,7 +488,7 @@ export default function DigitalTwinChat({ lng = fallbackLng }) {
 
           openChat();
         }}
-        className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white shadow-lg shadow-orange-500/25 ring-1 ring-white/10 transition hover:-translate-y-0.5 hover:bg-orange-400 hover:shadow-orange-500/35 dark:shadow-black/30 dark:hover:bg-orange-400"
+        className="pointer-events-auto ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white shadow-lg shadow-orange-500/25 ring-1 ring-white/10 transition hover:-translate-y-0.5 hover:bg-orange-400 hover:shadow-orange-500/35 dark:shadow-black/30 dark:hover:bg-orange-400"
         aria-label={isOpen ? copy.closeLabel : copy.openLabel}
         aria-expanded={isOpen}
       >
